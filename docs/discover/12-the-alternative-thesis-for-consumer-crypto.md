@@ -39,7 +39,7 @@ At the time, computers were bulky, expensive, and required deep technical expert
 
 IBM initially dismissed personal computers, believing them to be insignificant. However, by the early 1980s, it became clear that the consumer computing revolution was unstoppable.
 
-Apple’s commitment to usability and seamless hardware-software integration laid the foundation for modern personal computing, ultimately leading to the Macintosh in 1984—a device that truly transformed how people interacted with technology.
+Apple’s commitment to usability and seamless hardware-software integration laid the foundation for modern personal computing, ultimately leading to the Macintosh in 1984 — a device that truly transformed how people interacted with technology.
 
 ## The Blockchain Revolution and Its Bottlenecks
 
@@ -59,7 +59,7 @@ However, these solutions, while powerful, have yet to address the fundamental qu
 
 ## Reimagining Crypto for Consumers: A New Approach
 
-Quilibrium's ethos is that consumer crypto needs to follow the same path as personal computing—by simplifying interactions, abstracting complexities, and integrating seamlessly with user experiences.
+Quilibrium's ethos is that consumer crypto needs to follow the same path as personal computing — by simplifying interactions, abstracting complexities, and integrating seamlessly with user experiences.
 
 Here’s how we’re achieving that:
 
@@ -87,9 +87,7 @@ We can take the inspiration gifted to us from computing history and remember whe
 
 Quilibrium is built from the ground up to put users and their data first and simplifying interactions that enables a richer, more secure digital experience.
 
-The future of consumer crypto should not have finance being more complex—rather where digital interactions are seamless, private, and accessible.
-
-.
+The future of consumer crypto should not have finance being more complex — rather where digital interactions are seamless, private, and accessible.
 
 We, Quilibrium, are committed to securing such a future.
 
