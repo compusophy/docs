@@ -132,11 +132,11 @@ The logger section specifies optional configuration for logging master and worke
 
 ```
 logger:
-  path: .logs – Path to the directory where master and worker log files should be stored
-  maxSize: 50 - Maximum size of the log file in megabytes before it gets rotated
-  maxBackups: 5 - Maximum number of rotated log files to retain
-  maxAge: 10 - Maximum number of days to retain rotated log files based on the timestamp encoded in their filename
-  compress: true - Compress the rotated log files using gzip
+  path: – Path to the directory where master and worker log files should be stored, e.g. ".logs"
+  maxSize: - Maximum size of the log file in megabytes before it gets rotated, e.g. 50
+  maxBackups: - Maximum number of rotated log files to retain, 0 to disable, e.g. 0
+  maxAge: - Maximum number of days to retain rotated log files, 0 to disable, e.g. 10
+  compress: - Compress the rotated log files using gzip, e.g. true
 ```
 
 ## Database Section
