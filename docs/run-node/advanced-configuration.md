@@ -126,6 +126,19 @@ engine:
   delegateAddress:  – Hexadecimal address for rewards (without 0x prefix)
 ```
 
+## Logger Section
+
+The logger section specifies optional configuration for logging master and worker process messages to process-specific files instead of printing all processes' messages to standard output.
+
+```
+logger:
+  path: .logs – Path to the directory where master and worker log files should be stored
+  maxSize: 50 - Maximum size of the log file in megabytes before it gets rotated
+  maxBackups: 5 - Maximum number of rotated log files to retain
+  maxAge: 10 - Maximum number of days to retain rotated log files based on the timestamp encoded in their filename
+  compress: true - Compress the rotated log files using gzip
+```
+
 ## Database Section
 
 The database section specifies configurations of the underlying store.
