@@ -99,8 +99,8 @@ The engine section specifies attributes which define protocol engine defaults.
 ```
 engine:
   provingKeyId: <string> – The identifier of the proving key, retrieved by the key manager
-  filter: <string> – The section of the bloom filter the node will listen to
-  genesisSeed: <string> – The seed value used for the first frame
+  filter: <hex string> – The section of the bloom filter the node will listen to
+  genesisSeed: <hex string> – The seed value used for the first frame
   maxFrames:  – The maximum number of frames to retain
   pendingCommitWorkers: <int64> – The number of goroutines used to perform worker operations
   minimumPeersRequired: 3 | <int> – Minimum number of peers required for the node to function
