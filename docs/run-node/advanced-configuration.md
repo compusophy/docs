@@ -70,14 +70,14 @@ p2p:
   iDontWantMessageThreshold: 1024 – Size threshold for sending IDONTWANT messages
   iDontWantMessageTTL: 60 – TTL for IDONTWANT messages (in heartbeats)
   validateQueueSize: 16384 – Size of the validation queue
-  validateWorkers:  – Number of workers for validation (defaults to core count)
+  validateWorkers: <int> – Number of workers for validation (defaults to core count)
   subscriptionQueueSize: 16384 – Size of the subscription queue
   peerOutboundQueueSize: 128 – Size of outbound message channel per peer
   listenMultiaddr: "/ip4/0.0.0.0/tcp/8336" – The multiaddress to listen on for p2p connections
   streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" – The multiaddress for master node streaming (must be exposed, 2.1+)
-  peerPrivKey:  – The private key for the peer
-  traceLogFile:  – Path to the trace log file
-  network:  – The network identifier
+  peerPrivKey: <string> – The private key for the peer
+  traceLogFile: <string> – Path to the trace log file
+  network: <uint8> – The network identifier
   bootstrapPeers: <string[]> – List of bootstrap peer multiaddresses
   directPeers: <string[]> – List of direct peer multiaddresses
   lowWatermarkConnections: 160 – Low watermark for peer connections
@@ -98,13 +98,13 @@ The engine section specifies attributes which define protocol engine defaults.
 
 ```
 engine:
-  provingKeyId:  – The identifier of the proving key, retrieved by the key manager
-  filter:  – The section of the bloom filter the node will listen to
-  genesisSeed:  – The seed value used for the first frame
+  provingKeyId: <string> – The identifier of the proving key, retrieved by the key manager
+  filter: <string> – The section of the bloom filter the node will listen to
+  genesisSeed: <string> – The seed value used for the first frame
   maxFrames:  – The maximum number of frames to retain
-  pendingCommitWorkers:  – The number of goroutines used to perform worker operations
+  pendingCommitWorkers: <int64> – The number of goroutines used to perform worker operations
   minimumPeersRequired: 3 – Minimum number of peers required for the node to function
-  statsMultiaddr:  – The multiaddress for the stats server
+  statsMultiaddr: <string> – The multiaddress for the stats server
   dataWorkerBaseListenMultiaddr: "/ip4/0.0.0.0/tcp/%d" – Format string for worker listen addresses, if the prior default using localhost addresses is present, it will switch to the new default automatically.
   dataWorkerBaseP2PPort: 50000 – Starting port number for worker p2p communication
   dataWorkerBaseStreamPort: 60000 – Starting port number for worker streaming
@@ -112,7 +112,7 @@ engine:
   dataWorkerP2PMultiaddrs: <string[]> – Manual specification of worker p2p multiaddresses
   dataWorkerStreamMultiaddrs: <string[]> – Manual specification of worker stream multiaddresses
   dataWorkerFilters: <string[]> – Manual specification of shard filters chosen by workers
-  dataWorkerCount:  – Number of data worker processes to spawn
+  dataWorkerCount: <int> – Number of data worker processes to spawn
   multisigProverEnrollmentPaths: <string[]> – Paths to enrollment keys for multisig proving
   autoMergeCoins: false – Whether to automatically merge coins after minting
   syncTimeout: 4s – Maximum wait time for frame downloads from peers
@@ -123,7 +123,7 @@ engine:
   enableMasterProxy: false – Whether to proxy worker traffic through master process
   rewardStrategy: "reward-greedy" – Strategy for rewards ("reward-greedy" or "data-greedy")
   archiveMode: false – Whether to retain historic frame data
-  delegateAddress:  – Hexadecimal address for rewards (without 0x prefix)
+  delegateAddress: <string> – Hexadecimal address for rewards (without 0x prefix)
 ```
 
 ## Database Section
