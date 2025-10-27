@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Advanced Configuration
 
-Configuration is managed via the `config.yml` file, located in the config directory either specified at runtime or defaulting to the `.config/` folder in the node project. 
+Configuration is managed via the `config.yml` file, located in the config directory either specified at runtime or defaulting to the `.config/` folder in the node project.
 
 If there are multiple options listed for a configuration value, the first one is the default value.
 
@@ -156,7 +156,7 @@ db:
 This section denotes all additional configuration values at the root of the config file.
 
 ```
-listenGrpcMultiaddr: <multiaddr> - the multiaddr this node will listen on for gRPC calls 
+listenGrpcMultiaddr: <multiaddr> - the multiaddr this node will listen on for gRPC calls
 listenRESTMultiaddr: <multiaddr> - the multiaddr this node listen on for REST requests
 ```
 
