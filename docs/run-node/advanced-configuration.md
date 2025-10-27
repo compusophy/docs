@@ -75,7 +75,7 @@ p2p:
   peerOutboundQueueSize: 128 | <int> – Size of outbound message channel per peer
   listenMultiaddr: "/ip4/0.0.0.0/tcp/8336" | <multiaddr> – The multiaddress to listen on for p2p connections
   streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" | <multiaddr> – The multiaddress for master node streaming (must be exposed, 2.1+)
-  peerPrivKey: <hex string> – The private key for the peer
+  peerPrivKey: <hex string> – The private key for the peer (without 0x prefix)
   traceLogFile: <string> – Path to the trace log file
   network: <uint8> – The network identifier
   bootstrapPeers: <multiaddr[]> – List of bootstrap peer multiaddresses
@@ -98,7 +98,7 @@ The engine section specifies attributes which define protocol engine defaults.
 
 ```
 engine:
-  provingKeyId:  – The identifier of the proving key, retrieved by the key manager
+  provingKeyId:  – The identifier of the proving key, retrieved by the key manager, e.g. default-proving-key
   filter:  – The section of the bloom filter the node will listen to
   genesisSeed:  – The seed value used for the first frame
   pendingCommitWorkers:  – The number of goroutines used to perform worker operations
