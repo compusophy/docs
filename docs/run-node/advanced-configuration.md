@@ -78,8 +78,8 @@ p2p:
   peerPrivKey: <hex string> – The private key for the peer
   traceLogFile: <string> – Path to the trace log file
   network: <uint8> – The network identifier
-  bootstrapPeers: <string[]> – List of bootstrap peer multiaddresses
-  directPeers: <string[]> – List of direct peer multiaddresses
+  bootstrapPeers: <multiaddr[]> – List of bootstrap peer multiaddresses
+  directPeers: <multiaddr[]> – List of direct peer multiaddresses
   lowWatermarkConnections: 160 | <int> – Low watermark for peer connections
   highWatermarkConnections: 192 | <int> – High watermark for peer connections
   grpcServerRateLimit: 10 | <int> – Rate limit for GRPC server
