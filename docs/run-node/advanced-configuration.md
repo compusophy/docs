@@ -18,18 +18,11 @@ The key section specifies the key provider configuration:
 
 ```
 key:
-  keyManagerType: file | mem | pkcs11 | rpc
+  keyManagerType: file | mem
   keyManagerFile:
     path: .config/keys.yml | <string>
     createIfMissing: false | true
     encryptionKey: <hex string>
-  keyManagerPKCS11:
-    libraryPath: <string>
-    slot: <int>
-    slotIndex: <int>
-    promptPassword: false | true
-  keyStoreRPC:
-    listenMultiaddr: <multiaddr>
 ```
 
 By default, the file-based key manager is specified. Support for PKCS11 and RPC will be enabled in a subsequent upgrade.
