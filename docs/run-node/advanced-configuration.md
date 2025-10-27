@@ -198,15 +198,15 @@ engine:
 
 ## Direct Peers
 
-The directPeers field is used to specify a list of multiaddrs to use for direct connections.  This is useful for where you have one or more trusted peers that can aid in keeping in sync or bringing your node up to date.
+The `directPeers` field is used to specify a list of multiaddrs to use for direct connections.  This is useful for where you have one or more trusted peers that can aid in keeping in sync or bringing your node up to date.
 
-This needs to be specified in the config.yml file for all connecting nodes. Otherwise the recipient will start scoring the sender really low for misbehavior.
+This needs to be specified in the `config.yml` file <ins>for all connecting nodes</ins>. Otherwise the recipient will start scoring the sender really low for misbehavior.
 
-For instance, if you have two nodes, peerA and peerB, you would edit the config.yml file for both peerA and peerB to include the other peer in the directPeers field.
+For instance, if you have two nodes, peerA and peerB, you would edit the `config.yml` file for both peerA and peerB to include the other peer in the `p2p.directPeers` field.
 
 This is useful for if you already have a node running and want to add a new node to the network.  It will allow the new node to quickly sync up with the existing network due peering with your already up-to-date node.
 
-Both nodes do not need to be on at the same time or be started/stopped together.  The only requirement is that they are both defined in the other node's .p2p.directPeers list.
+Both nodes do not need to be on at the same time or be started/stopped together.  The only requirement is that they are both defined in the other node's `p2p.directPeers` list.
 
 ### Example
 ```
@@ -218,6 +218,6 @@ p2p:
 
 ## Using yq to update the config.yml file
 
-The `yq` command line tool can be used to update the config.yml file.  This tool is useful for making changes to the config.yml file without having to manually edit the file.
+The `yq` command line tool can be used to update the `config.yml` file.  This tool is useful for making changes to the `config.yml` file without having to manually edit the file.
 
 Install help and examples can be found on [yq docs](https://mikefarah.gitbook.io/yq).
