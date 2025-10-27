@@ -133,10 +133,10 @@ The logger section specifies optional configuration for logging master and worke
 ```
 logger:
   path: <string> – Path to the directory where master and worker log files should be stored, e.g. ".logs"
-  maxSize: <int> - Maximum size of the log file in megabytes before it gets rotated, e.g. 50
-  maxBackups: <int> - Maximum number of rotated log files to retain, 0 to disable, e.g. 0
-  maxAge: <int> - Maximum number of days to retain rotated log files, 0 to disable, e.g. 10
-  compress: <bool> - Compress the rotated log files using gzip, e.g. true
+  maxSize: <int> – Maximum size of the log file in megabytes before it gets rotated, e.g. 50
+  maxBackups: <int> – Maximum number of rotated log files to retain, 0 to disable, e.g. 0
+  maxAge: <int> – Maximum number of days to retain rotated log files, 0 to disable, e.g. 10
+  compress: <bool> – Compress the rotated log files using gzip, e.g. true
 ```
 
 ## Database Section
