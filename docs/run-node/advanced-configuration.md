@@ -101,7 +101,6 @@ engine:
   provingKeyId:  – The identifier of the proving key, retrieved by the key manager
   filter:  – The section of the bloom filter the node will listen to
   genesisSeed:  – The seed value used for the first frame
-  maxFrames:  – The maximum number of frames to retain
   pendingCommitWorkers:  – The number of goroutines used to perform worker operations
   minimumPeersRequired: 3 – Minimum number of peers required for the node to function
   statsMultiaddr:  – The multiaddress for the stats server
@@ -114,7 +113,6 @@ engine:
   dataWorkerFilters: <string[]> – Manual specification of shard filters chosen by workers
   dataWorkerCount:  – Number of data worker processes to spawn
   multisigProverEnrollmentPaths: <string[]> – Paths to enrollment keys for multisig proving
-  autoMergeCoins: false – Whether to automatically merge coins after minting
   syncTimeout: 4s – Maximum wait time for frame downloads from peers
   syncCandidates: 8 – Number of candidate peers per category to sync with
   syncMessageLimits:
@@ -145,7 +143,6 @@ db:
 This section denotes all additional configuration values at the root of the config file.
 
 ```
-logFile: <string> - the path to the log file for the node
 listenGrpcMultiaddr: <multiaddr> - the multiaddr this node will listen on for gRPC calls 
 listenRESTMultiaddr: <multiaddr> - the multiaddr this node listen on for REST requests
 ```
