@@ -53,7 +53,13 @@ This is a legacy solution and not actively maintained anymore, but may be used.
 
 The release autorun script automatically downloads the latest `node` binary, runs it, checks for new version in the background and, if found, triggers the update including `node` restart.
 
-Download the script and validate that its content is in line with your expectations:
+Create the node directory:
+
+```bash
+mkdir -p ceremonyclient/node && cd ceremonyclient/node 
+```
+
+Download the release autorun script and validate that its content is in line with your expectations:
 ```bash
 wget https://github.com/QuilibriumNetwork/monorepo/blob/release/node/release_autorun.sh
 ```
