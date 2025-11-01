@@ -89,29 +89,21 @@ Check node service status
 systemctl status ceremonyclient
 ```
 
-### General Linux commands
-*Change the NODE_DIR variable according to your needs*
+### General node commands
+:::info
+Replace `<version>`, `<os>` and `<arch>` placeholders accordingly, e.g. `node-2.1.0.4-linux-amd64` or `node-2.1.0.4-macos-arm64`
+:::
 
-**Get your peerID**
-```sh
-NODE_DIR="$HOME/ceremonyclient/node"
-NODE_BINARY=$(find "$NODE_DIR" -type f -executable -name "node-*" ! -name "*.dgst*" ! -name "*.sig*" | sort -V | tail -n 1 | xargs basename)
-cd "$HOME/ceremonyclient/node" && ./$NODE_BINARY -peer-id
+Printing node peer ID
+```bash
+./node-<version>-<os>-<arch> -peer-id
 ```
-\
-**See node info**\
-PeerID - Version - Max frame - Balance \
-_This can give an error on nodes that are not fully sync, but you will still see your peerID_
 
+Printing node info
 ```bash
-NODE_DIR="$HOME/ceremonyclient/node"
-NODE_BINARY=$(find "$NODE_DIR" -type f -executable -name "node-*" ! -name "*.dgst*" ! -name "*.sig*" | sort -V | tail -n 1 | xargs basename)
-cd "$HOME/ceremonyclient/node" && ./$NODE_BINARY -node-info
+./node-<version>-<os>-<arch> -node-info
 ```
-\
-**Check balance**
+Printing node balance
 ```bash
-NODE_DIR="$HOME/ceremonyclient/node"
-NODE_BINARY=$(find "$NODE_DIR" -type f -executable -name "node-*" ! -name "*.dgst*" ! -name "*.sig*" | sort -V | tail -n 1 | xargs basename)
-cd "$HOME/ceremonyclient/node" && ./$NODE_BINARY -balance
+./node-<version>-<os>-<arch> -balance
 ```
