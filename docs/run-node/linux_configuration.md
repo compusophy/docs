@@ -3,19 +3,19 @@ sidebar_position: 6
 ---
 
 # Linux Configuration
-## Running the node via service file
+## Running the node as systemd service
 
-To run your node via `systemd`, create the service file and open it:
+To run your node via `systemd`, create the service file:
 
 ```bash
 nano /lib/systemd/system/ceremonyclient.service
 ```
 
-Paste the below code (If your working directory is different from "root" than edit the code accordingly):
+Paste the following code and update the node working directory, if necessary:
 
 ```bash
 [Unit]
-Description=Ceremony Client Go App Service
+Description=Quilibrium Node Service
 StartLimitIntervalSec=0
 StartLimitBurst=0
 
@@ -42,53 +42,51 @@ A better setup would be to change the ExecStart line of the service file and use
 
 :::
 
-Save the file, exit and enable the service:
+Save the file and close the text editor.
 
+Enable the service, so it starts automatically upon each reboot:
 ```bash
-sudo systemctl daemon-reload && sudo systemctl enable ceremonyclient
+systemctl daemon-reload && sudo systemctl enable ceremonyclient
 ```
 
-Start the node
-
+Start the node service:
 ```bash
-service ceremonyclient start
+systemctl start ceremonyclient
 ```
-
-Now the node will start automatically after each reboot.
 
 ## Useful node commands
 
 ### Service commands
-*The below commands will work when running a node via service file*
+*The below commands will work when running a node via systemd service file*
 
-**Start service**
+Start node service
 ```bash
-service ceremonyclient start
+systemctl start ceremonyclient
 ```
 
-**Stop service**
+Stop node service
 ```bash
-service ceremonyclient stop
+systemctl stop ceremonyclient
 ```
 
-**Restart service**
+Restart node service
 ```bash
-service ceremonyclient restart
+systemctl restart ceremonyclient
 ```
 
-**Node log**
+Check node service log
 ```bash
-sudo journalctl -u ceremonyclient.service -f --no-hostname -o cat
+journalctl -u ceremonyclient.service -f --no-hostname -o cat
 ```
 
-**Node version**
+Check node version via service log
 ```bash
 journalctl -u ceremonyclient -r --no-hostname  -n 1 -g "Quilibrium Node" -o cat
 ```
 
-**Service status**
+Check node service status
 ```bash
-service ceremonyclient status
+systemctl status ceremonyclient
 ```
 
 ### General Linux commands
