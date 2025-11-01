@@ -46,7 +46,7 @@ Save the file and close the text editor.
 
 Enable the service, so it starts automatically upon each reboot:
 ```bash
-systemctl daemon-reload && sudo systemctl enable ceremonyclient
+systemctl daemon-reload && systemctl enable ceremonyclient
 ```
 
 Start the node service:
