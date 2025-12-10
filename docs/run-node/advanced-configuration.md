@@ -73,7 +73,7 @@ p2p:
   validateWorkers:  – Number of workers for validation (defaults to core count)
   subscriptionQueueSize: 16384 – Size of the subscription queue
   peerOutboundQueueSize: 128 – Size of outbound message channel per peer
-  listenMultiaddr: "/ip4/0.0.0.0/tcp/8336" – The multiaddress to listen on for p2p connections
+  listenMultiaddr: "/ip4/0.0.0.0/udp/8336/quic-v1" – The multiaddress to listen on for p2p connections
   streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" – The multiaddress for master node streaming (must be exposed, 2.1+)
   peerPrivKey:  – The private key for the peer
   traceLogFile:  – Path to the trace log file
