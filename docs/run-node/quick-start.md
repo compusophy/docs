@@ -48,17 +48,29 @@ There may be some early-bugs that may cause this method to not work for you, as 
 If you have issues, the autorun solution below can be used in the meantime.
 :::
 
-### Legacy Auto-run Install
+### Legacy Release Autorun Script
 This is a legacy solution and not actively maintained anymore, but may be used.
 
-It should work, but there are flaws with it.
+The release autorun script automatically downloads the latest `node` binary, runs it, checks for new version in the background and, if found, triggers the update including `node` restart.
 
-The release auto-run script will automatically download the latest release binary, run the node and periodically check for new releases. You can run the script as follows:
+Create the node directory:
 
 ```bash
-git clone --depth 1 --branch release https://github.com/QuilibriumNetwork/ceremonyclient.git
-cd ceremonyclient/node
-# Inspect the contents of the `release_autorun.sh` script before executing it
+mkdir -p ceremonyclient/node && cd ceremonyclient/node 
+```
+
+Download the release autorun script and validate that its content is in line with your expectations:
+```bash
+wget https://github.com/QuilibriumNetwork/monorepo/blob/release/node/release_autorun.sh
+```
+
+Make the script executable:
+```bash
+chmod +x release_autorun.sh
+```
+
+Run the script:
+```bash
 ./release_autorun.sh
 ```
 
