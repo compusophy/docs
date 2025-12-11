@@ -40,56 +40,56 @@ The p2p section specifies general connectivity and BlossomSub-specific parameter
 
 ```
 p2p:
-  d: 8 – Optimal degree for a BlossomSub bitmask mesh
-  dLo: 6 – Lower bound on the number of peers in a bitmask mesh
-  dHi: 12 – Upper bound on the number of peers in a bitmask mesh
-  dScore: 4 – Number of high-scoring peers to retain when pruning mesh
-  dOut: 2 – Minimum number of outbound connections to maintain in mesh
-  historyLength: 9 – Size of message cache used for gossip (in heartbeats)
-  historyGossip: 6 – Number of cached message IDs to advertise in IHAVE messages
-  dLazy: 6 – Minimum peers to emit gossip to at each heartbeat
-  gossipFactor: 0.25 – Factor affecting how many peers receive gossip each heartbeat
-  gossipRetransmission: 3 – Times a peer can request the same message before being ignored
-  heartbeatInitialDelay: 100ms – Delay before heartbeat timer begins after initialization
-  heartbeatInterval: 700ms – Time between heartbeats
-  fanoutTTL: 60s – How long to track fanout state for unpublished bitmasks
-  pruneBackoff: 60s – Backoff time for pruned peers
-  unsubscribeBackoff: 10s – Backoff time when unsubscribing from a bitmask
-  connectionTimeout: 30s – Timeout for connection attempts
-  directConnectInitialDelay: 1s – Initial delay before opening connections to direct peers
-  graftFloodThreshold: 10s – Time threshold for GRAFT following a PRUNE
-  iWantFollowupTime: 3s – Wait time for message requested through IWANT
-  connectors: 8 – Number of active connection attempts for peers from PX
-  maxPendingConnections: 128 – Maximum number of pending connections from PX
-  directConnectTicks: 300 – Heartbeat ticks for attempting to reconnect direct peers
-  opportunisticGraftTicks: 60 – Heartbeat ticks for opportunistic grafting
-  opportunisticGraftPeers: 2 – Number of peers to opportunistically graft
-  maxIHaveLength: 5000 – Maximum number of messages in an IHAVE message
-  maxIHaveMessages: 10 – Maximum IHAVE messages to accept from a peer per heartbeat
-  maxIDontWantMessages: 5000 – Maximum IDONTWANT messages to accept per heartbeat
-  iDontWantMessageThreshold: 1024 – Size threshold for sending IDONTWANT messages
-  iDontWantMessageTTL: 60 – TTL for IDONTWANT messages (in heartbeats)
-  validateQueueSize: 16384 – Size of the validation queue
-  validateWorkers:  – Number of workers for validation (defaults to core count)
-  subscriptionQueueSize: 16384 – Size of the subscription queue
-  peerOutboundQueueSize: 128 – Size of outbound message channel per peer
-  listenMultiaddr: "/ip4/0.0.0.0/udp/8336/quic-v1" – The multiaddress to listen on for p2p connections
-  streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" – The multiaddress for master node streaming (must be exposed, 2.1+)
-  peerPrivKey:  – The private key for the peer
-  traceLogFile:  – Path to the trace log file
-  network:  – The network identifier
-  bootstrapPeers: <string[]> – List of bootstrap peer multiaddresses
-  directPeers: <string[]> – List of direct peer multiaddresses
-  lowWatermarkConnections: 160 – Low watermark for peer connections
-  highWatermarkConnections: 192 – High watermark for peer connections
-  grpcServerRateLimit: 10 – Rate limit for GRPC server
-  minBootstrapPeers: 3 – Minimum number of bootstrap peers required
-  bootstrapParallelism: 10 – Number of parallel bootstrap operations
-  discoveryParallelism: 50 – Number of parallel discovery operations
-  discoveryPeerLookupLimit: 1000 – Maximum number of peers to lookup during discovery
-  pingTimeout: 5s – Timeout for ping operations
-  pingPeriod: 30s – Period between ping operations
-  pingAttempts: 3 – Number of ping attempts before considering a peer unreachable
+  d: 8 | <int> – Optimal degree for a BlossomSub bitmask mesh
+  dLo: 6 | <int> – Lower bound on the number of peers in a bitmask mesh
+  dHi: 12 | <int> – Upper bound on the number of peers in a bitmask mesh
+  dScore: 4 | <int> – Number of high-scoring peers to retain when pruning mesh
+  dOut: 2 | <int> – Minimum number of outbound connections to maintain in mesh
+  historyLength: 9 | <int> – Size of message cache used for gossip (in heartbeats)
+  historyGossip: 6 | <int> – Number of cached message IDs to advertise in IHAVE messages
+  dLazy: 6 | <int> – Minimum peers to emit gossip to at each heartbeat
+  gossipFactor: 0.25 | <float64> – Factor affecting how many peers receive gossip each heartbeat
+  gossipRetransmission: 3 | <int> – Times a peer can request the same message before being ignored
+  heartbeatInitialDelay: 100ms | <time.Duration> – Delay before heartbeat timer begins after initialization
+  heartbeatInterval: 700ms | <time.Duration> – Time between heartbeats
+  fanoutTTL: 60s | <time.Duration> – How long to track fanout state for unpublished bitmasks
+  pruneBackoff: 60s | <time.Duration> – Backoff time for pruned peers
+  unsubscribeBackoff: 10s | <time.Duration> – Backoff time when unsubscribing from a bitmask
+  connectionTimeout: 30s | <time.Duration> – Timeout for connection attempts
+  directConnectInitialDelay: 1s | <time.Duration> – Initial delay before opening connections to direct peers
+  graftFloodThreshold: 10s | <time.Duration> – Time threshold for GRAFT following a PRUNE
+  iWantFollowupTime: 3s | <time.Duration> – Wait time for message requested through IWANT
+  connectors: 8 | <int> – Number of active connection attempts for peers from PX
+  maxPendingConnections: 128 | <int> – Maximum number of pending connections from PX
+  directConnectTicks: 300 | <uint64> – Heartbeat ticks for attempting to reconnect direct peers
+  opportunisticGraftTicks: 60 | <uint64> – Heartbeat ticks for opportunistic grafting
+  opportunisticGraftPeers: 2 | <int> – Number of peers to opportunistically graft
+  maxIHaveLength: 5000 | <int> – Maximum number of messages in an IHAVE message
+  maxIHaveMessages: 10 | <int> – Maximum IHAVE messages to accept from a peer per heartbeat
+  maxIDontWantMessages: 5000 | <int> – Maximum IDONTWANT messages to accept per heartbeat
+  iDontWantMessageThreshold: 1024 | <int> – Size threshold for sending IDONTWANT messages
+  iDontWantMessageTTL: 60 | <int> – TTL for IDONTWANT messages (in heartbeats)
+  validateQueueSize: 16384 | <int> – Size of the validation queue
+  validateWorkers: [core-count] | <int> – Number of workers for validation (defaults to core count)
+  subscriptionQueueSize: 16384 | <int> – Size of the subscription queue
+  peerOutboundQueueSize: 128 | <int> – Size of outbound message channel per peer
+  listenMultiaddr: "/ip4/0.0.0.0/tcp/8336" | <multiaddr> – The multiaddress to listen on for p2p connections
+  streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" | <multiaddr> – The multiaddress for master node streaming (must be exposed, 2.1+)
+  peerPrivKey: <hex string> – The private key for the peer
+  traceLogFile: <string> – Path to the trace log file
+  network: <uint8> – The network identifier
+  bootstrapPeers: <multiaddr[]> – List of bootstrap peer multiaddresses
+  directPeers: <multiaddr[]> – List of direct peer multiaddresses
+  lowWatermarkConnections: 160 | <int> – Low watermark for peer connections
+  highWatermarkConnections: 192 | <int> – High watermark for peer connections
+  grpcServerRateLimit: 10 | <int> – Rate limit for GRPC server
+  minBootstrapPeers: 3 | <int> – Minimum number of bootstrap peers required
+  bootstrapParallelism: 10 | <int> – Number of parallel bootstrap operations
+  discoveryParallelism: 50 | <int> – Number of parallel discovery operations
+  discoveryPeerLookupLimit: 1000 | <int> – Maximum number of peers to lookup during discovery
+  pingTimeout: 5s | <time.Duration> – Timeout for ping operations
+  pingPeriod: 30s | <time.Duration> – Period between ping operations
+  pingAttempts: 3 | <int> – Number of ping attempts before considering a peer unreachable
 ```
 
 ## Engine Section
@@ -98,32 +98,32 @@ The engine section specifies attributes which define protocol engine defaults.
 
 ```
 engine:
-  provingKeyId:  – The identifier of the proving key, retrieved by the key manager
-  filter:  – The section of the bloom filter the node will listen to
-  genesisSeed:  – The seed value used for the first frame
+  provingKeyId: <string> – The identifier of the proving key, retrieved by the key manager
+  filter: <hex string> – The section of the bloom filter the node will listen to
+  genesisSeed: <hex string> – The seed value used for the first frame
   maxFrames:  – The maximum number of frames to retain
-  pendingCommitWorkers:  – The number of goroutines used to perform worker operations
-  minimumPeersRequired: 3 – Minimum number of peers required for the node to function
-  statsMultiaddr:  – The multiaddress for the stats server
-  dataWorkerBaseListenMultiaddr: "/ip4/0.0.0.0/tcp/%d" – Format string for worker listen addresses, if the prior default using localhost addresses is present, it will switch to the new default automatically.
-  dataWorkerBaseP2PPort: 50000 – Starting port number for worker p2p communication
-  dataWorkerBaseStreamPort: 60000 – Starting port number for worker streaming
-  dataWorkerMemoryLimit: 1880981504 – Memory limit for each worker process (1.75 GiB)
-  dataWorkerP2PMultiaddrs: <string[]> – Manual specification of worker p2p multiaddresses
-  dataWorkerStreamMultiaddrs: <string[]> – Manual specification of worker stream multiaddresses
+  pendingCommitWorkers: <int64> – The number of goroutines used to perform worker operations
+  minimumPeersRequired: 3 | <int> – Minimum number of peers required for the node to function
+  statsMultiaddr: <multiaddr> – The multiaddress for the stats server
+  dataWorkerBaseListenMultiaddr: "/ip4/0.0.0.0/tcp/%d" | <string> – Format string for worker listen addresses, if the prior default using localhost addresses is present, it will switch to the new default automatically.
+  dataWorkerBaseP2PPort: 50000 | <uint16> – Starting port number for worker p2p communication
+  dataWorkerBaseStreamPort: 60000 | <uint16> – Starting port number for worker streaming
+  dataWorkerMemoryLimit: 1880981504 | <int64> – Memory limit for each worker process (1.75 GiB)
+  dataWorkerP2PMultiaddrs: <multiaddr[]> – Manual specification of worker p2p multiaddresses
+  dataWorkerStreamMultiaddrs: <multiaddr[]> – Manual specification of worker stream multiaddresses
   dataWorkerFilters: <string[]> – Manual specification of shard filters chosen by workers
-  dataWorkerCount:  – Number of data worker processes to spawn
+  dataWorkerCount: <int> – Number of data worker processes to spawn
   multisigProverEnrollmentPaths: <string[]> – Paths to enrollment keys for multisig proving
   autoMergeCoins: false – Whether to automatically merge coins after minting
-  syncTimeout: 4s – Maximum wait time for frame downloads from peers
-  syncCandidates: 8 – Number of candidate peers per category to sync with
+  syncTimeout: 4s | <time.Duration> – Maximum wait time for frame downloads from peers
+  syncCandidates: 8 | <int> – Number of candidate peers per category to sync with
   syncMessageLimits:
-    receiveLimit: 1048576 – GRPC message receive limit (1 MiB)
-    sendLimit: 629145600 – GRPC message send limit (600 MiB)
-  enableMasterProxy: false – Whether to proxy worker traffic through master process
-  rewardStrategy: "reward-greedy" – Strategy for rewards ("reward-greedy" or "data-greedy")
-  archiveMode: false – Whether to retain historic frame data
-  delegateAddress:  – Hexadecimal address for rewards (without 0x prefix)
+    receiveLimit: 1048576 | <int> – GRPC message receive limit (1 MiB)
+    sendLimit: 629145600 | <int> – GRPC message send limit (600 MiB)
+  enableMasterProxy: false | true – Whether to proxy worker traffic through master process
+  rewardStrategy: "reward-greedy" | "data-greedy" – Strategy for rewards ("reward-greedy" or "data-greedy")
+  archiveMode: false | true – Whether to retain historic frame data
+  delegateAddress: <hex string> – Hexadecimal address for rewards (without 0x prefix)
 ```
 
 ## Logger Section
@@ -145,12 +145,12 @@ The database section specifies configurations of the underlying store.
 
 ```
 db:
-  path: ".config/store" – Path to the database directory
-  workerPathPrefix: ".config/worker-store/%d" – Format string for worker store paths, %d is replaced with worker core ID
+  path: ".config/store" | <string> – Path to the database directory
+  workerPathPrefix: ".config/worker-store/%d" | <string> – Format string for worker store paths, %d is replaced with worker core ID
   workerPaths: <string[]> – Manual override for worker store paths
-  noticePercentage: 70 – Storage capacity threshold for emitting notices (percentage)
-  warnPercentage: 90 – Storage capacity threshold for emitting warnings (percentage)
-  terminatePercentage: 95 – Storage capacity threshold for terminating the process (percentage)
+  noticePercentage: 70 | <int> – Storage capacity threshold for emitting notices (percentage)
+  warnPercentage: 90 | <int> – Storage capacity threshold for emitting warnings (percentage)
+  terminatePercentage: 95 | <int> – Storage capacity threshold for terminating the process (percentage)
 ```
 
 ## Additional Fields
