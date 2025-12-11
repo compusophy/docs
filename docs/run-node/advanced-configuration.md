@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Advanced Configuration
 
-Configuration is managed via the `config.yml` file, located in the config directory either specified at runtime or defaulting to the `.config/` folder in the node project. 
+Configuration is managed via the `config.yml` file, located in the config directory either specified at runtime or defaulting to the `.config/` folder in the node project.
 
 If there are multiple options listed for a configuration value, the first one is the default value.
 
@@ -75,7 +75,7 @@ p2p:
   peerOutboundQueueSize: 128 | <int> – Size of outbound message channel per peer
   listenMultiaddr: "/ip4/0.0.0.0/tcp/8336" | <multiaddr> – The multiaddress to listen on for p2p connections
   streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" | <multiaddr> – The multiaddress for master node streaming (must be exposed, 2.1+)
-  peerPrivKey: <hex string> – The private key for the peer
+  peerPrivKey: <hex string> – The private key for the peer (without 0x prefix)
   traceLogFile: <string> – Path to the trace log file
   network: <uint8> – The network identifier
   bootstrapPeers: <multiaddr[]> – List of bootstrap peer multiaddresses
@@ -98,9 +98,9 @@ The engine section specifies attributes which define protocol engine defaults.
 
 ```
 engine:
-  provingKeyId:  – The identifier of the proving key, retrieved by the key manager
-  filter:  – The section of the bloom filter the node will listen to
-  genesisSeed:  – The seed value used for the first frame
+  provingKeyId:  – The identifier of the proving key, retrieved by the key manager, e.g. default-proving-key
+  filter:  – The section of the bloom filter the node will listen to (without 0x prefix)
+  genesisSeed:  – The seed value used for the first frame (without 0x prefix)
   pendingCommitWorkers:  – The number of goroutines used to perform worker operations
   minimumPeersRequired: 3 – Minimum number of peers required for the node to function
   statsMultiaddr:  – The multiaddress for the stats server
@@ -156,8 +156,8 @@ db:
 This section denotes all additional configuration values at the root of the config file.
 
 ```
-listenGrpcMultiaddr: <multiaddr> - the multiaddr this node will listen on for gRPC calls 
-listenRESTMultiaddr: <multiaddr> - the multiaddr this node listen on for REST requests
+listenGrpcMultiaddr: <multiaddr> – local multiaddr the master process will listen on for gRPC calls
+listenRESTMultiaddr: <multiaddr> – local multiaddr the master process will listen on for REST requests
 ```
 
 ## 2.0 Combined Seniority Prover Keys
@@ -198,15 +198,15 @@ engine:
 
 ## Direct Peers
 
-The directPeers field is used to specify a list of multiaddrs to use for direct connections.  This is useful for where you have one or more trusted peers that can aid in keeping in sync or bringing your node up to date.
+The `directPeers` field is used to specify a list of multiaddrs to use for direct connections.  This is useful for where you have one or more trusted peers that can aid in keeping in sync or bringing your node up to date.
 
-This needs to be specified in the config.yml file for all connecting nodes. Otherwise the recipient will start scoring the sender really low for misbehavior.
+This needs to be specified in the `config.yml` file <ins>for all connecting nodes</ins>. Otherwise the recipient will start scoring the sender really low for misbehavior.
 
-For instance, if you have two nodes, peerA and peerB, you would edit the config.yml file for both peerA and peerB to include the other peer in the directPeers field.
+For instance, if you have two nodes, peerA and peerB, you would edit the `config.yml` file for both peerA and peerB to include the other peer in the `p2p.directPeers` field.
 
 This is useful for if you already have a node running and want to add a new node to the network.  It will allow the new node to quickly sync up with the existing network due peering with your already up-to-date node.
 
-Both nodes do not need to be on at the same time or be started/stopped together.  The only requirement is that they are both defined in the other node's .p2p.directPeers list.
+Both nodes do not need to be on at the same time or be started/stopped together.  The only requirement is that they are both defined in the other node's `p2p.directPeers` list.
 
 ### Example
 ```
@@ -218,6 +218,6 @@ p2p:
 
 ## Using yq to update the config.yml file
 
-The `yq` command line tool can be used to update the config.yml file.  This tool is useful for making changes to the config.yml file without having to manually edit the file.
+The `yq` command line tool can be used to update the `config.yml` file.  This tool is useful for making changes to the `config.yml` file without having to manually edit the file.
 
 Install help and examples can be found on [yq docs](https://mikefarah.gitbook.io/yq).
