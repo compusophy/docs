@@ -18,21 +18,14 @@ The key section specifies the key provider configuration:
 
 ```
 key:
-  keyManagerType: file | mem | pkcs11 | rpc
+  keyManagerType: file – Key manager the node should use
   keyManagerFile:
-    path: .config/keys.yml | <string>
-    createIfMissing: false | true
-    encryptionKey: <hex string>
-  keyManagerPKCS11:
-    libraryPath: <string>
-    slot: <int>
-    slotIndex: <int>
-    promptPassword: false | true
-  keyStoreRPC:
-    listenMultiaddr: <multiaddr>
+    path: .config/keys.yml | <string> – Path to key file
+    createIfMissing: false | true – If true, the node will (re-)create the missing key file
+    encryptionKey: <hex string> – Hexadecimal encryption key (without 0x prefix)
 ```
 
-By default, the file-based key manager is specified. Support for PKCS11 and RPC will be enabled in a subsequent upgrade.
+By default, the file-based key manager is specified. Support for in-memory, PKCS11 and RPC will be enabled in a subsequent upgrade.
 
 ## Peer-to-Peer Networking Section
 
