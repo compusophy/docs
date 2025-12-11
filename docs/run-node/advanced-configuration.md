@@ -126,6 +126,19 @@ engine:
   delegateAddress: <hex string> – Hexadecimal address for rewards (without 0x prefix)
 ```
 
+## Logger Section
+
+The logger section specifies optional configuration for logging master and worker process messages to process-specific files instead of printing all processes' messages to standard output.
+
+```
+logger:
+  path: <string> – Path to the directory where master and worker log files should be stored, e.g. ".logs"
+  maxSize: <int> – Maximum size of the log file in megabytes before it gets rotated, e.g. 50
+  maxBackups: <int> – Maximum number of rotated log files to retain, 0 to disable, e.g. 0
+  maxAge: <int> – Maximum number of days to retain rotated log files, 0 to disable, e.g. 10
+  compress: <bool> – Compress the rotated log files using gzip, e.g. true
+```
+
 ## Database Section
 
 The database section specifies configurations of the underlying store.
@@ -145,7 +158,6 @@ db:
 This section denotes all additional configuration values at the root of the config file.
 
 ```
-logFile: <string> - the path to the log file for the node
 listenGrpcMultiaddr: <multiaddr> - the multiaddr this node will listen on for gRPC calls 
 listenRESTMultiaddr: <multiaddr> - the multiaddr this node listen on for REST requests
 ```
