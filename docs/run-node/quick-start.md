@@ -66,29 +66,21 @@ This script is intended to help get started quickly, but for robust deployments 
 
 ## Key and Store Backups
 
-In order to access rewards or make token operations for your account, you must maintain your set of keys and it is recommended that you back them up.
+In order to run a node, access rewards or make token operations for your account, you need the node's **keyset** consisting of the `config.yml` and `keys.yml` files. You are strongly advised to maintain copies of these files in an encrypted backup.
 
-Keys are included in a node's configuration file set, and both the `config.yml` and `keys.yml` file should be saved.
+**Worker data** is stored in `worker-store/[worker-id]`. It should also be regularly backed up, to make the node restoration faster (for example, in case of physical server failure) and avoid unnecessary penalties.
 
-Data for each worker should also be backed up, to make restoration faster and avoid penalization.
+If this worker data is lost, it can be restored by running the node which will fetch the data from it's shard peers, but will result in missed rewards and penalties if the worker data is not restored in time.
 
-All of this data will be found in your config folder:
+Keyset and worker data are stored in your node's `.config` directory:
 
 ```
-/path/to/config/
-/path/to/config/keys.yml
-/path/to/config/config.yml
-/path/to/config/worker-store/[worker-id]/
+.config/keys.yml
+.config/config.yml
+.config/worker-store/[worker-id]/
+```
+:::info
+If you installed via `qclient`, your config directory should be in `~/.quilibrium/configs/[config-name]`.
 
-### QClient Install Data Locations
-If you installed via QClient, the the config keysets and worker stores will be found in `~/.quilibrium/configs/[config-name]`
-
-### Auto-run or Manual Install Data Locations
-
-If you followed the instructions in the [Autorun](#autorun) section, this data will be stored in the `ceremonyclient/node/.config` directory. It's recommended to back up this entire directory. 
-
-The `.config/keys.yml` and `.config/config.yml` files contain private keys and should be encrypted in backups. If you back up the entire directory, it's easiest to encrypt the entire backup.
-
-
-
-
+If you used `release_autorun.sh` script, your config directory should be `ceremonyclient/node/.config`.
+:::
