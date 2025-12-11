@@ -98,25 +98,23 @@ The engine section specifies attributes which define protocol engine defaults.
 
 ```
 engine:
-  provingKeyId: <string> – The identifier of the proving key, retrieved by the key manager
-  filter: <hex string> – The section of the bloom filter the node will listen to
-  genesisSeed: <hex string> – The seed value used for the first frame
-  maxFrames:  – The maximum number of frames to retain
-  pendingCommitWorkers: <int64> – The number of goroutines used to perform worker operations
-  minimumPeersRequired: 3 | <int> – Minimum number of peers required for the node to function
-  statsMultiaddr: <multiaddr> – The multiaddress for the stats server
-  dataWorkerBaseListenMultiaddr: "/ip4/0.0.0.0/tcp/%d" | <string> – Format string for worker listen addresses, if the prior default using localhost addresses is present, it will switch to the new default automatically.
-  dataWorkerBaseP2PPort: 50000 | <uint16> – Starting port number for worker p2p communication
-  dataWorkerBaseStreamPort: 60000 | <uint16> – Starting port number for worker streaming
-  dataWorkerMemoryLimit: 1880981504 | <int64> – Memory limit for each worker process (1.75 GiB)
-  dataWorkerP2PMultiaddrs: <multiaddr[]> – Manual specification of worker p2p multiaddresses
-  dataWorkerStreamMultiaddrs: <multiaddr[]> – Manual specification of worker stream multiaddresses
+  provingKeyId:  – The identifier of the proving key, retrieved by the key manager
+  filter:  – The section of the bloom filter the node will listen to
+  genesisSeed:  – The seed value used for the first frame
+  pendingCommitWorkers:  – The number of goroutines used to perform worker operations
+  minimumPeersRequired: 3 – Minimum number of peers required for the node to function
+  statsMultiaddr:  – The multiaddress for the stats server
+  dataWorkerBaseListenMultiaddr: "/ip4/0.0.0.0/tcp/%d" – Format string for worker listen addresses, if the prior default using localhost addresses is present, it will switch to the new default automatically.
+  dataWorkerBaseP2PPort: 50000 – Starting port number for worker p2p communication
+  dataWorkerBaseStreamPort: 60000 – Starting port number for worker streaming
+  dataWorkerMemoryLimit: 1880981504 – Memory limit for each worker process (1.75 GiB)
+  dataWorkerP2PMultiaddrs: <string[]> – Manual specification of worker p2p multiaddresses
+  dataWorkerStreamMultiaddrs: <string[]> – Manual specification of worker stream multiaddresses
   dataWorkerFilters: <string[]> – Manual specification of shard filters chosen by workers
   dataWorkerCount: <int> – Number of data worker processes to spawn
   multisigProverEnrollmentPaths: <string[]> – Paths to enrollment keys for multisig proving
-  autoMergeCoins: false – Whether to automatically merge coins after minting
-  syncTimeout: 4s | <time.Duration> – Maximum wait time for frame downloads from peers
-  syncCandidates: 8 | <int> – Number of candidate peers per category to sync with
+  syncTimeout: 4s – Maximum wait time for frame downloads from peers
+  syncCandidates: 8 – Number of candidate peers per category to sync with
   syncMessageLimits:
     receiveLimit: 1048576 | <int> – GRPC message receive limit (1 MiB)
     sendLimit: 629145600 | <int> – GRPC message send limit (600 MiB)
