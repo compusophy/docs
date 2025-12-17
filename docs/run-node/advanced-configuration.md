@@ -66,8 +66,10 @@ p2p:
   validateWorkers: [core-count] | <int> – Number of workers for validation (defaults to core count)
   subscriptionQueueSize: 16384 | <int> – Size of the subscription queue
   peerOutboundQueueSize: 128 | <int> – Size of outbound message channel per peer
-  listenMultiaddr: "/ip4/0.0.0.0/tcp/8336" | <multiaddr> – The multiaddress to listen on for p2p connections
-  streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" | <multiaddr> – The multiaddress for master node streaming (must be exposed, 2.1+)
+  listenMultiaddr: "/ip4/0.0.0.0/tcp/8336" | <multiaddr> – Master process multiaddr to listen on for p2p connections
+  streamListenMultiaddr: "/ip4/0.0.0.0/tcp/8340" | <multiaddr> – Master process multiaddr to listen on for streaming connections
+  announceListenMultiaddr: <multiaddr> – [WARNING] Forced master process p2p multiaddr with public IP for peer-info broadcasts
+  announceStreamListenMultiaddr: <multiaddr> – [WARNING] Forced master process stream multiaddr with public IP for peer-info broadcasts
   peerPrivKey: <hex string> – The private key for the peer (without 0x prefix)
   traceLogFile: <string> – Path to the trace log file
   network: <uint8> – The network identifier
@@ -84,6 +86,12 @@ p2p:
   pingPeriod: 30s | <time.Duration> – Period between ping operations
   pingAttempts: 3 | <int> – Number of ping attempts before considering a peer unreachable
 ```
+:::warning
+
+The `announce` parameters should only be used on situations when regular P2P mechanism for determining the public IP address of your node do not produce consistent correct results. Use these with caution as errors in their values can make your master process unreachable to peers.
+
+:::
+
 
 ## Engine Section
 
@@ -103,6 +111,8 @@ engine:
   dataWorkerMemoryLimit: 1880981504 – Memory limit for each worker process (1.75 GiB)
   dataWorkerP2PMultiaddrs: <string[]> – Manual specification of worker p2p multiaddresses
   dataWorkerStreamMultiaddrs: <string[]> – Manual specification of worker stream multiaddresses
+  dataWorkerAnnounceP2PMultiaddrs: <multiaddr[]> – [WARNING] Forced worker process p2p multiaddrs with public IP for peer-info broadcasts
+  dataWorkerAnnounceStreamMultiaddrs: <multiaddr[]> – [WARNING] Forced worker process stream multiaddrs with public IP for peer-info broadcasts
   dataWorkerFilters: <string[]> – Manual specification of shard filters chosen by workers
   dataWorkerCount: <int> – Number of data worker processes to spawn
   multisigProverEnrollmentPaths: <string[]> – Paths to enrollment keys for multisig proving
@@ -116,6 +126,18 @@ engine:
   archiveMode: false | true – Whether to retain historic frame data
   delegateAddress: <hex string> – Hexadecimal address for rewards (without 0x prefix)
 ```
+
+:::warning
+
+The `announce` parameters should only be used on situations when regular P2P mechanism for determining the public IP address of your node do not produce consistent correct results. Use these with caution as errors in their values can make your worker process unreachable to peers.
+
+:::
+
+:::info
+
+Worker `announce` parameters can be used with automatic worker spawning using `basePort` parameters. Make sure to match the port number for each worker process.
+
+:::
 
 ## Logger Section
 
