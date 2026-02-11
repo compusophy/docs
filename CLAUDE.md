@@ -30,10 +30,11 @@ Create a `.env` file from `.env.example`:
 - **Visualizations**: D3.js for technical diagrams
 
 ### Documentation Structure
-The docs are organized into 5 main sections (auto-generated from directories):
+The docs are organized into 6 main sections (auto-generated sidebars from directories):
 - `discover/` - Introduction, FAQ, tokenomics
 - `learn/` - Technical deep dives
 - `build/` - Developer guides
+- `protocol/` - Protocol specifications
 - `api/` - API documentation
 - `run-node/` - Node operation guides
 
@@ -70,6 +71,18 @@ The docs include custom React components for:
 - Force graph visualizations
 - Interactive diagrams
 
+## AI Agent Workflow
+
+This project uses an `.agents/` folder for AI-generated documentation, task tracking, bug reports, and reports.
+See `.agents/AGENTS.md` for full guidelines.
+
+### Quick Reference
+- **Tasks**: `.agents/tasks/` (completed → `.agents/tasks/.done/`)
+- **Bugs**: `.agents/bugs/` (solved → `.agents/bugs/.solved/`)
+- **Docs**: `.agents/docs/features/`
+- **Reports**: `.agents/reports/` (completed → `.agents/reports/.done/`)
+- **Index**: Run `python .agents/update-index.py` after changes to regenerate `.agents/INDEX.md`
+
 ## Deployment
 - **Organization**: QuilibriumNetwork
 - **Repository**: docs
@@ -80,4 +93,4 @@ The docs include custom React components for:
 Documentation is licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
 
 ---
-Updated: 2025-07-21 12:45 UTC
+Updated: 2026-02-11 UTC
