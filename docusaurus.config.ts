@@ -13,7 +13,32 @@ const config: Config = {
   title: "Quilibrium Docs",
   tagline:
     "Learn how to get started building on the network, run a node, or just understand the technology",
-  favicon: "img/favicon.png",
+  favicon: "img/favicon.ico",
+
+  headTags: [
+    {
+      tagName: "link",
+      attributes: {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/img/apple-touch-icon.png",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "manifest",
+        href: "/manifest.webmanifest",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "theme-color",
+        content: "#ff056d",
+      },
+    },
+  ],
 
   // Set the production url of your site here
   url: "https://docs.quilibrium.com",
@@ -61,7 +86,7 @@ const config: Config = {
   future: {
     v4: {
       removeLegacyPostBuildHeadAttribute: true,
-      useCssCascadeLayers: true,
+      useCssCascadeLayers: false,
     },
   },
 
@@ -85,14 +110,19 @@ const config: Config = {
   plugins: [tailwindPlugin, require.resolve("docusaurus-lunr-search")],
 
   themeConfig: {
+    colorMode: {
+      defaultMode: 'light',
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
+    },
     // Replace with your project's social card
     image: "img/socialcard-docs.png",
     navbar: {
-      title: "Quilibrium Docs",
+      title: "",
       logo: {
-        alt: "Quilibrium Logo",
-        src: "img/q-symbol.png",
-        srcDark: "img/q-symbol.png",
+        alt: "Quilibrium",
+        src: "img/logo.svg",
+        srcDark: "img/logo-dark.svg",
       },
       items: [
         {
