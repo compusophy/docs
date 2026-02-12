@@ -8,6 +8,45 @@ sidebar_position: 1
 
 Please see the [system requirements](/docs/run-node/system-requirements) section for details.
 
+## User Setup and Permissions
+
+For security best practices, we recommend creating a dedicated user for running the node rather than using root. This limits potential damage if the node software is compromised.
+
+### Recommended: Dedicated User (More Secure)
+
+Create a dedicated `quilibrium` user:
+
+```bash
+# Create dedicated quilibrium user
+sudo adduser --system --group --home /var/lib/quilibrium quilibrium
+```
+
+Then run all node commands as that user:
+```bash
+# Switch to quilibrium user
+sudo -u quilibrium bash
+
+# Now install the node
+qclient node install
+```
+
+### Alternative: Root User (Less Secure)
+
+You can run as root, but be aware this increases security risk. If you choose this approach, use `sudo` for installation commands:
+
+```bash
+sudo qclient node install
+```
+
+:::warning Security Notice
+Running as root means any vulnerability in the node software could compromise your entire system. The dedicated user approach is strongly recommended for production nodes.
+:::
+
+**Where keys are stored:**
+- Dedicated user: `/var/lib/quilibrium/.quilibrium/configs/`
+- Root user: `/root/.quilibrium/configs/`
+- Regular user: `/home/<username>/.quilibrium/configs/`
+
 ## Default Ports to Open on Firewall
 
 | **Port Range**       | **Protocol** | **Purpose**                          | **Notes**                                                                 |
@@ -63,21 +102,25 @@ You can enable/disable qclient auto-updates with:
 qclient node auto-update enable
 ```
 
-:::note
-There may be some early-bugs that may cause this method to not work for you, as this method is recently released.
+For detailed information on managing your node service, see [Run Node via Node Service](/docs/run-node/qclient/node/run-node-via-node-service).
 
-If you have issues, the autorun solution below can be used in the meantime.
+### Legacy Release Autorun Script (Obsolete)
+
+:::danger Obsolete Method
+This is an obsolete node provisioning method and should only be used if you cannot use qclient. New operators should use the qclient method above.
+
+If you're using this obsolete method, consider [migrating to qclient](/docs/run-node/qclient/node/install).
 :::
 
-### Legacy Release Autorun Script
-This is a legacy solution and not actively maintained anymore, but may be used.
+<details>
+<summary>Click to expand legacy autorun instructions</summary>
 
 The release autorun script automatically downloads the latest `node` binary, runs it, checks for new version in the background and, if found, triggers the update including `node` restart.
 
 Create the node directory:
 
 ```bash
-mkdir -p ceremonyclient/node && cd ceremonyclient/node 
+mkdir -p ceremonyclient/node && cd ceremonyclient/node
 ```
 
 Download the release autorun script and validate that its content is in line with your expectations:
@@ -95,7 +138,9 @@ Run the script:
 ./release_autorun.sh
 ```
 
-This script is intended to help get started quickly, but for robust deployments it is recommended to use some service orchestration solution (e.g. `systemd` on Linux).
+For systemd service configuration with this legacy method, see [Legacy Manual Configuration](/docs/run-node/linux_configuration).
+
+</details>
 
 ## Key and Store Backups
 
