@@ -27,6 +27,26 @@ This can be achieved by setting `listenMultiaddr` to `/ip4/0.0.0.0/tcp/8336` and
 
 :::
 
+## IP Address Ranges to Block with Firewall on a Hosted Server
+
+Hosting providers commonly provide a public IP address while expecting the software running on your server to address other communication endpoints via public IP addresses. Any attempts to communicate with private address ranges are typically interpreted by the hosting provider as a network attack with the warnings being sent to the server operator and, if not corrected quickly, with the server network being suspended.
+Properly configured servers running nodes behind NAT can start with a private IP address but will quickly learn their public IP with the peer assistance and start broadcasting it instead of the initial private IP address.
+However, mis-configured nodes that cannot communicate with peers may end up broadcating private IP while provoking other nodes connecting to private IP address ranges.
+To prevent connection attempts to the private IP ranges, the following firewalls rules can be added on Linux with `ufw` utility: 
+
+```bash
+# Block RFC1918 private address ranges
+ufw deny out to 10.0.0.0/8
+ufw deny out to 172.16.0.0/12
+ufw deny out to 192.168.0.0/16
+
+# Block multicast
+ufw deny out to 224.0.0.0/4
+
+# Block broadcast
+ufw deny out to 255.255.255.255
+```
+
 ## Node Install
 
 ### Recommended Install Method
