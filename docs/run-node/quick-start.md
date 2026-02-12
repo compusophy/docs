@@ -12,9 +12,10 @@ Please see the [system requirements](/docs/run-node/system-requirements) section
 
 | **Port Range**       | **Protocol** | **Purpose**                          | **Notes**                                                                 |
 |----------------------|--------------|--------------------------------------|---------------------------------------------------------------------------|
-| 8336, 8340           | UDP or TCP   | Network connectivity                | Must be open to join the network.                                        |
-| 50000-50003* | UDP or TCP   | Worker processes libp2p communication      | Port range must be opened based on the number of worker processes. |
-| 60000-60003* (example for 4 workers) | UDP or TCP   | Worker processes streaming communication      | Port range must be opened based on the number of worker processes. |
+| 8336           | QUIC/UDP or TCP   | Master process p2p communication |                                         |
+| 8340           | TCP   | Master process streaming communication  |                                        |
+| 50000-50003* | QUIC/UDP or TCP   | Worker processes p2p communication      | Port range must be opened based on the number of worker processes. |
+| 60000-60003* | TCP   | Worker processes streaming communication      | Port range must be opened based on the number of worker processes. |
 
 *Using an example of 4 workers, 1 port for each, starting from the base port.
 
