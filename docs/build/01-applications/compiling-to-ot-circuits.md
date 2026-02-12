@@ -22,7 +22,7 @@ Bedlam also has support for testing the evaluation of circuits without having to
 
 Structs that are stored on the hypergraph must have corresponding [RDF](/docs/learn/oblivious-hypergraph/rdf-storage) schema. Generally, it is easier to start from the RDF, and use the generated QCL types. As an example, we will define a simple RDF class holding 256 bytes, saving it to a file named `byteblock.rdf`:
 
-```
+```turtle
 BASE <https://types.quilibrium.com/schema-repository/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -40,7 +40,7 @@ byteblock:Bytes a rdfs:Property;
 
 Running `qclient schema qclgen byteblock.rdf` will return `byteblock.qcl`, which contains the boilerplate hypergraph serialization implementations:
 
-```
+```go
 package main
 
 type ByteBlock struct {
@@ -66,7 +66,7 @@ From this you can add your `main` entrypoint, which can emit `hypergraph.CreateE
 
 While applications are 2PC by default, you may have a specific need to allow multiple parties outside of the requestor and a prover to jointly compute an application. QCL supports this with simple syntax. The main method entrypoint for your application takes at a minimum, an input argument by the initiator, and a relay argument for the base 2PC scenario:
 
-```
+```go
 package main
 
 func main(input int8, relay hypergraph.Network) int8 {
@@ -76,7 +76,7 @@ func main(input int8, relay hypergraph.Network) int8 {
 
 For MPC applications, you define the parties via additional arguments (omitting the relay argument):
 
-```
+```go
 package main
 
 func main(initiatorInput int8, secondInput int8) bool {

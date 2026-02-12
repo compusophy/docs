@@ -86,7 +86,7 @@ If this worker data is lost, it can be restored by running the node which will f
 
 Keyset and worker data are stored in your node's `.config` directory:
 
-```
+```text
 .config/keys.yml
 .config/config.yml
 .config/worker-store/[worker-id]/

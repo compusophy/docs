@@ -257,8 +257,9 @@ const config: Config = {
       copyright: COPYRIGHT,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.oneLight,
+      darkTheme: prismThemes.oneDark,
+      additionalLanguages: ["protobuf", "go", "turtle"],
     },
   } satisfies Preset.ThemeConfig,
 };

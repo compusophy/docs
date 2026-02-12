@@ -20,7 +20,7 @@ All protocol messages use a standardized canonical byte serialization format tha
 
 #### Encoding Conventions
 
-```
+```text
 [4 bytes] Type prefix (big-endian uint32)
 [...] Field data according to specific rules:
   • Fixed-size fields: Written directly in big-endian
@@ -76,7 +76,7 @@ message Message {
 
 **Canonical Serialization:**
 
-```
+```text
 [4 bytes] 0x00000100
 [4 bytes] Hash length
 [n bytes] Hash
@@ -105,7 +105,7 @@ message PeerInfo {
 
 **Canonical Serialization:**
 
-```
+```text
 [4 bytes] 0x00000101
 [4 bytes] Length of peer_id
 [n bytes] peer_id
@@ -150,7 +150,7 @@ message Capability {
 
 **Canonical Serialization:**
 
-```
+```text
 [4 bytes] 0x00000102
 [4 bytes] protocol_identifier (uint32)
 [4 bytes] Length of additional_metadata
@@ -165,21 +165,21 @@ message Capability {
 
 #### Ed448PublicKey (0x0110)
 
-```
+```text
 [4 bytes] 0x00000110
 [57 bytes] key_value (fixed)
 ```
 
 #### Ed448PrivateKey (0x0111)
 
-```
+```text
 [4 bytes] 0x00000111
 [57 bytes] key_value (fixed)
 ```
 
 #### Ed448Signature (0x0112)
 
-```
+```text
 [4 bytes] 0x00000112
 [4 bytes] Length of public_key (0 for nil)
 [n bytes] public_key (Ed448PublicKey canonical bytes if not nil)
@@ -191,14 +191,14 @@ message Capability {
 
 #### X448PublicKey (0x0113)
 
-```
+```text
 [4 bytes] 0x00000113
 [56 bytes] key_value (fixed)
 ```
 
 #### X448PrivateKey (0x0114)
 
-```
+```text
 [4 bytes] 0x00000114
 [56 bytes] key_value (fixed)
 ```
@@ -207,21 +207,21 @@ message Capability {
 
 #### BLS48581G2PublicKey (0x0117)
 
-```
+```text
 [4 bytes] 0x00000117
 [565 bytes] key_value (fixed)
 ```
 
 #### BLS48581G2PrivateKey (0x0118)
 
-```
+```text
 [4 bytes] 0x00000118
 [73 bytes] key_value (fixed)
 ```
 
 #### BLS48581Signature (0x0119)
 
-```
+```text
 [4 bytes] 0x00000119
 [4 bytes] Length of public_key (0 for nil)
 [n bytes] public_key (BLS48581G2PublicKey canonical bytes if not nil)
@@ -231,7 +231,7 @@ message Capability {
 
 #### BLS48581SignatureWithProofOfPossession (0x011A)
 
-```
+```text
 [4 bytes] 0x0000011A
 [4 bytes] Length of signature
 [n bytes] signature
@@ -243,7 +243,7 @@ message Capability {
 
 #### BLS48581AddressedSignature (0x011B)
 
-```
+```text
 [4 bytes] 0x0000011B
 [4 bytes] Length of signature
 [n bytes] signature
@@ -253,7 +253,7 @@ message Capability {
 
 #### BLS48581AggregateSignature (0x011C)
 
-```
+```text
 [4 bytes] 0x0000011C
 [4 bytes] Length of signature
 [n bytes] signature
@@ -267,21 +267,21 @@ message Capability {
 
 #### Decaf448PublicKey (0x011D)
 
-```
+```text
 [4 bytes] 0x0000011D
 [56 bytes] key_value (fixed)
 ```
 
 #### Decaf448PrivateKey (0x011E)
 
-```
+```text
 [4 bytes] 0x0000011E
 [56 bytes] key_value (fixed)
 ```
 
 #### Decaf448Signature (0x011F)
 
-```
+```text
 [4 bytes] 0x0000011F
 [4 bytes] Length of public_key (0 for nil)
 [n bytes] public_key (Decaf448PublicKey canonical bytes if not nil)
@@ -291,7 +291,7 @@ message Capability {
 
 ### SignedX448Key (0x0120)
 
-```
+```text
 [4 bytes] 0x00000120
 [4 bytes] Length of key (0 for nil)
 [n bytes] key (X448PublicKey canonical bytes if not nil)
@@ -305,7 +305,7 @@ If signature_type > 0:
 
 ### SignedDevicePreKey (0x0121)
 
-```
+```text
 [4 bytes] 0x00000121
 [4 bytes] Length of signed_x448_key (0 for nil)
 [n bytes] signed_x448_key (SignedX448Key canonical bytes if not nil)
@@ -314,7 +314,7 @@ If signature_type > 0:
 
 ### KeyCollection (0x0122)
 
-```
+```text
 [4 bytes] 0x00000122
 [4 bytes] Length of key_purpose
 [n bytes] key_purpose (string)
@@ -326,7 +326,7 @@ For each key:
 
 ### KeyRegistry (0x0123)
 
-```
+```text
 [4 bytes] 0x00000123
 [4 bytes] Length of identity_key (0 for nil)
 [n bytes] identity_key (canonical bytes if not nil)
@@ -351,7 +351,7 @@ For each map entry:
 
 ### P2PChannelEnvelope (0x0200)
 
-```
+```text
 [4 bytes] 0x00000200
 [4 bytes] protocol_identifier (uint32)
 [4 bytes] Length of message_header (0 for nil)
@@ -362,7 +362,7 @@ For each map entry:
 
 ### MessageCiphertext (0x0201)
 
-```
+```text
 [4 bytes] 0x00000201
 [4 bytes] Length of initialization_vector
 [n bytes] initialization_vector
@@ -374,7 +374,7 @@ For each map entry:
 
 ### InboxMessage (0x0202)
 
-```
+```text
 [4 bytes] 0x00000202
 [4 bytes] Length of address
 [n bytes] address
@@ -387,7 +387,7 @@ For each map entry:
 
 ### HubAddInbox (0x0203)
 
-```
+```text
 [4 bytes] 0x00000203
 [4 bytes] Length of address
 [n bytes] address
@@ -401,7 +401,7 @@ For each map entry:
 
 ### HubDeleteInbox (0x0204)
 
-```
+```text
 [4 bytes] 0x00000204
 [4 bytes] Length of address
 [n bytes] address
@@ -419,7 +419,7 @@ For each map entry:
 
 ### LegacyProverRequest (0x0300)
 
-```
+```text
 [4 bytes] 0x00000300
 [4 bytes] Count of public_key_signatures_ed448
 For each signature:
@@ -431,7 +431,7 @@ For each signature:
 
 #### ProverJoin (0x0301)
 
-```
+```text
 [4 bytes] 0x00000301
 [4 bytes] Count of filters
 For each filter:
@@ -449,7 +449,7 @@ For each merge_target:
 
 #### ProverLeave (0x0302)
 
-```
+```text
 [4 bytes] 0x00000302
 [4 bytes] Count of filters
 For each filter:
@@ -461,7 +461,7 @@ For each filter:
 
 #### ProverPause (0x0303)
 
-```
+```text
 [4 bytes] 0x00000303
 [3 bytes] filter (fixed)
 [8 bytes] frame_number (uint64)
@@ -471,7 +471,7 @@ For each filter:
 
 #### ProverResume (0x0304)
 
-```
+```text
 [4 bytes] 0x00000304
 [3 bytes] filter (fixed)
 [8 bytes] frame_number (uint64)
@@ -481,7 +481,7 @@ For each filter:
 
 #### ProverConfirm (0x0305)
 
-```
+```text
 [4 bytes] 0x00000305
 [3 bytes] filter (fixed)
 [8 bytes] frame_number (uint64)
@@ -491,7 +491,7 @@ For each filter:
 
 #### ProverReject (0x0306)
 
-```
+```text
 [4 bytes] 0x00000306
 [3 bytes] filter (fixed)
 [8 bytes] frame_number (uint64)
@@ -501,7 +501,7 @@ For each filter:
 
 #### ProverKick (0x0307)
 
-```
+```text
 [4 bytes] 0x00000307
 [8 bytes] frame_number (uint64)
 [4 bytes] Length of kicked_prover_public_key
@@ -520,7 +520,7 @@ For each filter:
 
 #### ProverUpdate (0x0308)
 
-```
+```text
 [4 bytes] 0x00000308
 [4 bytes] Length of delegate_address
 [n bytes] delegate_address
@@ -532,7 +532,7 @@ For each filter:
 
 #### GlobalFrameHeader (0x0309)
 
-```
+```text
 [4 bytes] 0x00000309
 [8 bytes] frame_number (uint64)
 [8 bytes] timestamp (int64)
@@ -553,7 +553,7 @@ For each global_commitment:
 
 #### FrameHeader (0x030A)
 
-```
+```text
 [4 bytes] 0x0000030A
 [4 bytes] Length of address
 [n bytes] address
@@ -593,7 +593,7 @@ This section is omitted until the release of 2.1
 
 #### GlobalFrame (0x030E)
 
-```
+```text
 [4 bytes] 0x0000030E
 [4 bytes] Length of header (0 for nil)
 [n bytes] header (GlobalFrameHeader canonical bytes if not nil)
@@ -605,7 +605,7 @@ For each request:
 
 #### AppShardFrame (0x030F)
 
-```
+```text
 [4 bytes] 0x0000030F
 [4 bytes] Length of header (0 for nil)
 [n bytes] header (FrameHeader canonical bytes if not nil)
@@ -623,7 +623,7 @@ This section is omitted until the release of 2.1
 
 *A universal wrapper using an inner type discriminant.*
 
-```
+```text
 [4 bytes] 0x00000311
 [4 bytes] Inner type prefix (identifies the specific request type)
 [n bytes] Request payload (includes its own type prefix)
@@ -631,7 +631,7 @@ This section is omitted until the release of 2.1
 
 #### MessageBundle (0x0312)
 
-```
+```text
 [4 bytes] 0x00000312
 [4 bytes] Count of requests
 For each request:
@@ -642,7 +642,7 @@ For each request:
 
 #### Multiproof (0x0313)
 
-```
+```text
 [4 bytes] 0x00000313
 [4 bytes] Length of multicommitment
 [n bytes] multicommitment
@@ -652,7 +652,7 @@ For each request:
 
 #### Path (0x0314)
 
-```
+```text
 [4 bytes] 0x00000314
 [4 bytes] Count of indices
 For each index:
@@ -661,7 +661,7 @@ For each index:
 
 #### TraversalSubProof (0x0315)
 
-```
+```text
 [4 bytes] 0x00000315
 [4 bytes] Count of commits
 For each commit:
@@ -679,7 +679,7 @@ For each path:
 
 #### TraversalProof (0x0316)
 
-```
+```text
 [4 bytes] 0x00000316
 [4 bytes] Length of multiproof (0 for nil)
 [n bytes] multiproof (Multiproof canonical bytes if not nil)
@@ -697,7 +697,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### HypergraphConfiguration (0x0401)
 
-```
+```text
 [4 bytes] 0x00000401
 [4 bytes] Length of read_public_key
 [n bytes] read_public_key
@@ -709,7 +709,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### HypergraphDeployment (0x0402)
 
-```
+```text
 [4 bytes] 0x00000402
 [4 bytes] Length of config
 [n bytes] config (HypergraphConfiguration canonical bytes)
@@ -719,7 +719,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### HypergraphUpdate (0x0403)
 
-```
+```text
 [4 bytes] 0x00000403
 [4 bytes] Length of domain
 [n bytes] domain
@@ -733,7 +733,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### VertexAdd (0x0404)
 
-```
+```text
 [4 bytes] 0x00000404
 [4 bytes] Length of domain
 [n bytes] domain
@@ -747,7 +747,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### VertexRemove (0x0405)
 
-```
+```text
 [4 bytes] 0x00000405
 [4 bytes] Length of domain
 [n bytes] domain
@@ -759,7 +759,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### HyperedgeAdd (0x0406)
 
-```
+```text
 [4 bytes] 0x00000406
 [4 bytes] Length of domain
 [n bytes] domain
@@ -771,7 +771,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### HyperedgeRemove (0x0407)
 
-```
+```text
 [4 bytes] 0x00000407
 [4 bytes] Length of domain
 [n bytes] domain
@@ -787,7 +787,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### Authority (0x0500)
 
-```
+```text
 [4 bytes] 0x00000500
 [4 bytes] key_type (uint32)
 [4 bytes] Length of public_key
@@ -797,7 +797,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### FeeBasis (0x0501)
 
-```
+```text
 [4 bytes] 0x00000501
 [4 bytes] type (uint32)
 [4 bytes] Length of baseline
@@ -806,7 +806,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### TokenMintStrategy (0x0502)
 
-```
+```text
 [4 bytes] 0x00000502
 [4 bytes] mint_behavior (uint32)
 [4 bytes] proof_basis (uint32)
@@ -822,7 +822,7 @@ Signatures for Vertex and Hyperedge Add/Remove operations utilize `write_public_
 
 ### TokenConfiguration (0x0503)
 
-```
+```text
 [4 bytes] 0x00000503
 [4 bytes] behavior (uint32)
 [4 bytes] Length of mint_strategy (0 for nil)
@@ -845,7 +845,7 @@ For each reference:
 
 ### TokenDeployment (0x0504)
 
-```
+```text
 [4 bytes] 0x00000504
 [4 bytes] Length of config (0 for nil)
 [n bytes] config (TokenConfiguration canonical bytes if not nil)
@@ -855,7 +855,7 @@ For each reference:
 
 ### TokenUpdate (0x0505)
 
-```
+```text
 [4 bytes] 0x00000505
 [4 bytes] Length of config (0 for nil)
 [n bytes] config (TokenConfiguration canonical bytes if not nil)
@@ -867,7 +867,7 @@ For each reference:
 
 ### RecipientBundle (0x0506)
 
-```
+```text
 [4 bytes] 0x00000506
 [4 bytes] Length of one_time_key
 [n bytes] one_time_key
@@ -885,7 +885,7 @@ For each reference:
 
 ### TransactionInput (0x0507)
 
-```
+```text
 [4 bytes] 0x00000507
 [4 bytes] Length of commitment
 [n bytes] commitment
@@ -899,7 +899,7 @@ For each proof:
 
 ### TransactionOutput (0x0508)
 
-```
+```text
 [4 bytes] 0x00000508
 [4 bytes] Length of frame_number
 [n bytes] frame_number
@@ -911,7 +911,7 @@ For each proof:
 
 ### Transaction (0x0509)
 
-```
+```text
 [4 bytes] 0x00000509
 [4 bytes] Length of domain
 [n bytes] domain
@@ -936,7 +936,7 @@ For each fee:
 
 ### PendingTransactionInput (0x050A)
 
-```
+```text
 [4 bytes] 0x0000050A
 [4 bytes] Length of commitment
 [n bytes] commitment
@@ -950,7 +950,7 @@ For each proof:
 
 ### PendingTransactionOutput (0x050B)
 
-```
+```text
 [4 bytes] 0x0000050B
 [4 bytes] Length of frame_number
 [n bytes] frame_number
@@ -965,7 +965,7 @@ For each proof:
 
 ### PendingTransaction (0x050C)
 
-```
+```text
 [4 bytes] 0x0000050C
 [4 bytes] Length of domain
 [n bytes] domain

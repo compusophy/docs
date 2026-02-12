@@ -10,7 +10,7 @@ After you have built and tested your application, you can deploy it to the netwo
 
 To deploy an application, you will need to submit a deployment transaction via qclient:
 
-```
+```bash
 qclient deploy application.qcl
 ```
 
