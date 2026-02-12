@@ -62,12 +62,17 @@ const config: Config = {
   onBrokenAnchors: "throw",
   // Fail the build for broken links (e.g. `./broken-link`)
   onBrokenLinks: "throw",
-  // Fail the build for broken markdown links. Note that this only applies to links 
-  // that have `.md` or `.mdx` extensions.
-  onBrokenMarkdownLinks: "throw",
-  // Applies to duplicate routes created with the `@docusaurus/plugin-content-pages` 
+  // Applies to duplicate routes created with the `@docusaurus/plugin-content-pages`
   // plugin.
   onDuplicateRoutes: 'throw',
+
+  markdown: {
+    hooks: {
+      // Fail the build for broken markdown links. Note that this only applies to links
+      // that have `.md` or `.mdx` extensions.
+      onBrokenMarkdownLinks: "throw",
+    },
+  },
 
   // Make Docusaurus add a trailing slash to the URLs so that links like `/docs/foo` 
   // will be rewritten to `/docs/foo/`.
