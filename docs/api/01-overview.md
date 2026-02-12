@@ -1,3 +1,8 @@
+---
+title: Get Started
+description: Introduction to Quilibrium's APIs for building censorship-resistant, decentralized applications with privacy-first infrastructure including QStorage and QKMS.
+---
+
 # Get Started
 
 Quilibrium's APIs are designed to provide access to the Quilibrium Network, offering developers a toolset for creating the world's censorship-resistant and decentralized applications. 

@@ -27,7 +27,7 @@ If an operation requires inputs from multiple parties and must follow stages, th
 Generally, Ref types are simply hypergraph references by address, with the exception of AccountRefs, which have a special consideration in being either originated (e.g. created as an explicit entity on the network and referenced like any other Ref) or implicit (e.g. bound to and derived from a specific key and key type). 
 The latter is important for many "cold" key management operations, where a key is generated and lives completely offline from the network, restored only to perform operations such that all resources allocated to the key material has been transferred to another key, either cold or under a different custodial strategy.
 
-```
+```protobuf
 message OriginatedAccountRef {
   bytes address = 1;
 }
@@ -54,7 +54,7 @@ The type leaves room for additional key/signature support in the future.
 Because data on Quilibrium is encrypted, and general network operations can only be conducted with the requisite key material to perform decryption as part of the operations, RPC methods mirror the actual application methods, but have a wrapper message for the caller to provide relevant information to perform the actual network interaction. 
 Structurally, the request envelopes contain the request itself, a keyring collection, and optionally, if the request produces side effects regarding key management, the delivery strategy for communicating these updates:
 
-```
+```protobuf
 message Decryptable<Operation><Entity>Request {
   <Operation><Entity>Request request = 1;
   KeyRing key_ring = 2;
@@ -65,7 +65,7 @@ message Decryptable<Operation><Entity>Request {
 The key ring is simply a collection of relevant keys: most importantly, the decryption keys for referenced assets. 
 In the event mutations on those given assets are performed, the reference takes a transactional lock.
 
-```
+```protobuf
 message InlineKey {
   bytes ref = 1;
   bytes key = 2;
@@ -82,7 +82,7 @@ To ensure network consistency and that it is not possible to induce an inaccessi
 relevant keys for all notifiable parties **must** be provided in the key ring. 
 Address is used to disambiguate the sender in the event multiple identifiable parties are present in the key ring.
 
-```
+```protobuf
 message DeliveryMethod {
   uint32 delivery_type = 1;
   bytes address = 2;
@@ -93,7 +93,7 @@ message DeliveryMethod {
 
 The `quilibrium.node.node.pb.AccountService` RPC exposes a few simple operations for common account management:
 
-```
+```protobuf
 service AccountService {
   rpc Allow(DecryptableAllowAccountRequest) returns (AllowAccountResponse);
   rpc GetBalance(DecryptableBalanceAccountRequest) returns (BalanceAccountResponse);
@@ -107,7 +107,7 @@ service AccountService {
 
 Allows another account to perform actions on behalf of a given account. Returns the new `AccountAllowanceRef` created and notifications delivered.
 
-```
+```protobuf
 message AllowAccountRequest {
   AccountRef of_account = 1;
   AccountRef permitted_account = 2;
@@ -133,7 +133,7 @@ message AllowAccountResponse {
 Requests the total balance of all `Coins` directly under an account (not including those the account only has 
 allowances over).
 
-```
+```protobuf
 message BalanceAccountRequest {
   AccountRef account = 1;
   AccountAllowanceRef allowance = 2;
@@ -154,7 +154,7 @@ message BalanceAccountResponse {
 
 Requests the set of all `Coins` directly under an account (including those the account only has allowances over).
 
-```
+```protobuf
 message CoinInfo {
   CoinRef coin = 1;
   bytes balance = 2;
@@ -180,7 +180,7 @@ message CoinsAccountResponse {
 
 Requests the set of all `PendingTransactions` directly under an account.
 
-```
+```protobuf
 message PendingTransactionsAccountRequest {
   AccountRef account = 1;
   AccountAllowanceRef allowance = 2;
@@ -208,7 +208,7 @@ message PendingTransactionsAccountResponse {
 
 Revokes the provided `AccountAllowance` by reference.
 
-```
+```protobuf
 message RevokeAccountRequest {
   AccountRef of_account = 1;
   AccountAllowanceRef revoked_allowance = 2;
@@ -231,7 +231,7 @@ message RevokeAccountResponse {
 
 The `quilibrium.node.node.pb.CoinService` RPC exposes a few simple operations for common coin management:
 
-```
+```protobuf
 service CoinService {
   rpc Allow(DecryptableAllowCoinRequest) returns (AllowCoinResponse);
   rpc Intersect(DecryptableIntersectCoinRequest) returns (IntersectCoinResponse);
@@ -250,7 +250,7 @@ service CoinService {
 Allows another account to perform actions on behalf of a given `Coin`. 
 Returns the new `CoinAllowanceRef` created and notifications delivered.
 
-```
+```protobuf
 message AllowCoinRequest {
   CoinRef of_coin = 1;
   AccountRef permitted_account = 2;
@@ -277,7 +277,7 @@ message AllowCoinResponse {
 Performs a set intersection evaluation on a given `Coin`. 
 Returns a boolean value indicating whether or not the provided addresses appeared in the intersection data.
 
-```
+```protobuf
 message IntersectCoinRequest {
   repeated bytes addresses = 1;
   AccountAllowanceRef account_allowance = 2;
@@ -301,7 +301,7 @@ message IntersectCoinResponse {
 Merges a collection of `CoinRefs` into a single `Coin`. 
 Note: Merging combines the intersection data of the `Coin`s.
 
-```
+```protobuf
 message MergeCoinRequest {
   repeated CoinRef coins = 1;
   AccountAllowanceRef account_allowance = 2;
@@ -326,7 +326,7 @@ message MergeCoinResponse {
 Mints `Coin`s based on the provided proofs from the protocol. 
 Unless the node is explicitly configured to not auto claim, this is handled automatically.
 
-```
+```protobuf
 message MintCoinRequest {
   repeated bytes proofs = 1;
   AccountAllowanceRef allowance = 2;
@@ -350,7 +350,7 @@ message MintCoinResponse {
 The recipient side of a live mutual transfer process. 
 Returns a stream of messages indicating status of the transfer process, initiated `rendezvous` string (which must be provided to the sender), the received `CoinRef` and relevant deliveries.
 
-```
+```protobuf
 message MutualReceiveCoinRequest {
   AccountRef to_account = 1;
   AccountAllowanceRef allowance = 2;
@@ -376,7 +376,7 @@ message MutualReceiveCoinResponse {
 The sender side of a provided `CoinRef` in a live mutual transfer process. 
 Returns a stream of messages indicating status of the transfer process, and relevant deliveries.
 
-```
+```protobuf
 message MutualTransferCoinRequest {
   bytes rendezvous = 1;
   CoinRef of_coin = 2;
@@ -402,7 +402,7 @@ message MutualTransferCoinResponse {
 Revokes a provided `CoinAllowanceRef` for the given `CoinRef`. 
 Returns relevant deliveries.
 
-```
+```protobuf
 message RevokeCoinRequest {
   CoinRef of_coin = 1;
   CoinAllowanceRef revoked_allowance = 2;
@@ -427,7 +427,7 @@ message RevokeCoinResponse {
 Splits a `Coin` into given separate amounts, with optional parameters regarding permissions provided as needed to validate the split. 
 Returns output `CoinRef`s and relevant deliveries.
 
-```
+```protobuf
 message SplitCoinRequest {
   CoinRef of_coin = 1;
   repeated bytes amounts = 2;
@@ -453,7 +453,7 @@ message SplitCoinResponse {
 Initiates a transfer of a given `Coin` to another `Account`, with optional parameters regarding refund account, expiry of the transaction state, and permissions provided as needed to validate the transfer. 
 Returns a pending transaction reference and relevant deliveries.
 
-```
+```protobuf
 message TransferCoinRequest {
   AccountRef to_account = 1;
   AccountRef refund_account = 2;
@@ -480,7 +480,7 @@ message TransferCoinResponse {
 
 The `quilibrium.node.node.pb.TransactionService` RPC exposes a few simple operations for pending transaction management:
 
-```
+```protobuf
 service TransactionService {
   rpc Approve(DecryptableApprovePendingTransactionRequest) returns (ApprovePendingTransactionResponse);
   rpc Reject(DecryptableRejectPendingTransactionRequest) returns (RejectPendingTransactionResponse);
@@ -491,7 +491,7 @@ service TransactionService {
 
 Approves a pending transaction and returns the received `CoinRef`.
 
-```
+```protobuf
 message ApprovePendingTransactionRequest {
   PendingTransactionRef pending_transaction = 1;
   AccountAllowanceRef account_allowance = 2;
@@ -514,7 +514,7 @@ message ApprovePendingTransactionResponse {
 
 Rejects a pending transaction.
 
-```
+```protobuf
 message RejectPendingTransactionRequest {
   PendingTransactionRef pending_transaction = 1;
   AccountAllowanceRef account_allowance = 2;
@@ -543,7 +543,7 @@ For cold custody operations, it is therefore advisable to have an account config
 1. The account to receive assets is an implicit account, of [`type 0`](#refs-and-accountrefs).
 2. If desired to avoid users providing key info for the pending transaction, the initial signature should be a singular operation for the network, to permit a warm/hot key to perform at least [`ListPendingTransactions`](#listpendingtransactions), which can be relayed via the RPC after the cold key production process is completed.
 
-```
+```protobuf
 AllowAccountRequest{
   OfAccount: &AccountRef{
     Account: &ImplicitAccount{
@@ -567,7 +567,7 @@ AllowAccountRequest{
 
 3. Then monitor ongoing pending transactions from the RPC using the permitted key.
 
-```
+```protobuf
 PendingTransactionsAccountRequest{
   Account: &AccountRef{
     Account: &ImplicitAccount{

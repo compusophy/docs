@@ -8,8 +8,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     fontFamily: {
-      sans: ["Inter", "sans-serif"], 
-      heading: ["AtAero", "sans-serif"], 
+      sans: ["Inter", "sans-serif"],
+      heading: ["AtAero", "sans-serif"],
+      mono: ["Geist Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
     },
     colors: {
       // Opacity-compatible

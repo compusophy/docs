@@ -1,3 +1,8 @@
+---
+title: Q Story and Roadmap
+description: The history and roadmap of Quilibrium, from its origins in 2018 as a Discord alternative to its evolution into a decentralized network for privacy-preserving infrastructure.
+---
+
 # Q Story and Roadmap
 
 Curious how it all began? Presenting... the "Q story".

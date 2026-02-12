@@ -54,7 +54,7 @@ The protocol operates in discrete time periods called **frames**:
 ### State Transitions
 
 Each frame represents a state transition of the network:
-```
+```text
 State(n) + Transactions(frame_n) = State(n+1)
 ```
 

@@ -1,3 +1,7 @@
+---
+title: "Quilibrium's Innovative Use of Passkeys"
+description: How Quilibrium leverages passkeys for wallet-free, phishing-resistant authentication that eliminates seed phrases and enables browser-based interaction with the decentralized network.
+---
 
 # Quilibrium's Innovative Use of Passkeys
 

@@ -13,7 +13,32 @@ const config: Config = {
   title: "Quilibrium Docs",
   tagline:
     "Learn how to get started building on the network, run a node, or just understand the technology",
-  favicon: "img/favicon.png",
+  favicon: "img/favicon.ico",
+
+  headTags: [
+    {
+      tagName: "link",
+      attributes: {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/img/apple-touch-icon.png",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "manifest",
+        href: "/manifest.webmanifest",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "theme-color",
+        content: "#ff056d",
+      },
+    },
+  ],
 
   // Set the production url of your site here
   url: "https://docs.quilibrium.com",
@@ -37,12 +62,17 @@ const config: Config = {
   onBrokenAnchors: "throw",
   // Fail the build for broken links (e.g. `./broken-link`)
   onBrokenLinks: "throw",
-  // Fail the build for broken markdown links. Note that this only applies to links 
-  // that have `.md` or `.mdx` extensions.
-  onBrokenMarkdownLinks: "throw",
-  // Applies to duplicate routes created with the `@docusaurus/plugin-content-pages` 
+  // Applies to duplicate routes created with the `@docusaurus/plugin-content-pages`
   // plugin.
   onDuplicateRoutes: 'throw',
+
+  markdown: {
+    hooks: {
+      // Fail the build for broken markdown links. Note that this only applies to links
+      // that have `.md` or `.mdx` extensions.
+      onBrokenMarkdownLinks: "throw",
+    },
+  },
 
   // Make Docusaurus add a trailing slash to the URLs so that links like `/docs/foo` 
   // will be rewritten to `/docs/foo/`.
@@ -61,7 +91,7 @@ const config: Config = {
   future: {
     v4: {
       removeLegacyPostBuildHeadAttribute: true,
-      useCssCascadeLayers: true,
+      useCssCascadeLayers: false,
     },
   },
 
@@ -82,17 +112,33 @@ const config: Config = {
     ],
   ],
 
-  plugins: [tailwindPlugin, require.resolve("docusaurus-lunr-search")],
+  plugins: [tailwindPlugin],
+
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true,
+        indexBlog: false,
+      }),
+    ],
+  ],
 
   themeConfig: {
+    colorMode: {
+      defaultMode: 'light',
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
+    },
     // Replace with your project's social card
     image: "img/socialcard-docs.png",
     navbar: {
-      title: "Quilibrium Docs",
+      title: "",
       logo: {
-        alt: "Quilibrium Logo",
-        src: "img/q-symbol.png",
-        srcDark: "img/q-symbol.png",
+        alt: "Quilibrium",
+        src: "img/logo.svg",
+        srcDark: "img/logo-dark.svg",
       },
       items: [
         {
@@ -211,8 +257,9 @@ const config: Config = {
       copyright: COPYRIGHT,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.oneLight,
+      darkTheme: prismThemes.oneDark,
+      additionalLanguages: ["protobuf", "go", "turtle"],
     },
   } satisfies Preset.ThemeConfig,
 };

@@ -1,4 +1,9 @@
-# The Illusion of Decentralization in Crypto, and Quilibrium’s Radical Alternative.
+---
+title: "The Illusion of Decentralization in Crypto, and Quilibrium's Radical Alternative"
+description: How mining centralization, exchange dominance, and financialization have eroded blockchain decentralization, and how Quilibrium's hypergraph architecture offers a genuine alternative.
+---
+
+# The Illusion of Decentralization in Crypto, and Quilibrium's Radical Alternative.
 
 :::info
 

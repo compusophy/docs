@@ -1,5 +1,9 @@
+---
+title: "Security Audits of Quilibrium's Cryptographic Protocols"
+description: An overview of the audit history behind Quilibrium's cryptographic libraries, including Nekryptology, VDF implementations from Chia, libp2p, and the wQUIL ERC-20 contract.
+---
 
-# Security Audits of Quilibrium’s Cryptographic Protocols
+# Security Audits of Quilibrium's Cryptographic Protocols
 
 Quilibrium relies on advanced cryptographic protocols that include Triple-Ratchet, Oblivious Transfer, and Verifiable Delay Functions (VDFs) to ensure secure and private computation.
 

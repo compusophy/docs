@@ -1,3 +1,8 @@
+---
+title: Gas Fees and Dynamic Fee Market
+description: How Quilibrium calculates transaction fees based on data size, execution complexity, and proof size, with a dynamic multiplier system that keeps costs fair.
+---
+
 # Gas Fees and Dynamic Fee Market on Quilibrium
 
 Quilibrium’s gas fee system is built around a **dynamic fee market** that adapts to network usage. Fees are calculated based on three key factors:

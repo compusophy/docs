@@ -1,6 +1,9 @@
 ---
+title: QStorage Overview
 sidebar_position: 1
+description: Overview of QStorage, an S3-compatible decentralized object storage service built on the Quilibrium Network with built-in encryption and censorship resistance.
 ---
+
 # Overview
 
 QStorage is an S3-compatible object storage service that delivers best-in-class scalability, decentralization, reliability, security, and performance for storing and retrieving data.

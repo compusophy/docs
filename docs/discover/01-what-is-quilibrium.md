@@ -1,3 +1,8 @@
+---
+title: What is Quilibrium?
+description: An introduction to Quilibrium, a decentralized MPC protocol designed to secure every bit of web traffic through privacy-preserving computation, storage, and communication at scale.
+---
+
 # What is Quilibrium?
 **Quilibrium is a MPC protocol under active development with a bold mission: to secure every bit of traffic on the web.** \
 \

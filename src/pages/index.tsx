@@ -6,16 +6,19 @@ import React, {type ReactNode} from 'react';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
+import FeaturedDocs from '../components/FeaturedDocs';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero bg-burgundy-pink-4', styles.heroBanner)}>
+    <header className={clsx('hero', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title gradient-sweep--dark">
           {siteConfig.title}
         </Heading>
-        <p className="hero__subtitle text-light-grey">{siteConfig.tagline}</p>
+        <p className={clsx('hero__subtitle text-light-grey', styles.heroSubtitle)}>
+          {siteConfig.tagline}
+        </p>
       </div>
     </header>
   );
@@ -30,6 +33,7 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <FeaturedDocs />
       </main>
     </Layout>
   );

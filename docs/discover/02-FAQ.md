@@ -1,3 +1,8 @@
+---
+title: FAQs
+description: Frequently asked questions about Quilibrium, covering the protocol, QUIL token, tokenomics, Q Storage, technical capabilities, and Quorum Messenger.
+---
+
 # FAQs
 
 ## General Questions

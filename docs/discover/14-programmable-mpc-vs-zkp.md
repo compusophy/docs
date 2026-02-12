@@ -1,3 +1,8 @@
+---
+title: Programmable MPC vs ZKP
+description: How Quilibrium's programmable multi-party computation solves the first-mover problem by enabling conditional disclosure, and why MPC is better suited than ZKPs for multi-party coordination.
+---
+
 # What If You Could Agree Without Revealing Intent?
 
 In many real-world situations, the best outcomes happen when multiple people agree — but only if everyone involved consents. The catch? No one wants to go first.

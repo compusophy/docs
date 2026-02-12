@@ -8,17 +8,22 @@
   --ifm-link-hover-color: var(--ifm-color-emphasis-700);
   --ifm-link-hover-decoration: none;
 
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
-  transition: background-color var(--ifm-transition-fast) ease;
-  border-radius:0.5rem;
+  box-shadow: none;
+  border: 1px solid rgba(190, 184, 180, 0.3);
+  border-radius: 12px;
+  transition: border-color 300ms cubic-bezier(0, 0, 0.5, 1);
 }
 
 .cardContainer:hover {
-  background-color: var(--light-pink);
+  border-color: rgba(190, 184, 180, 0.6);
+}
+
+[data-theme='dark'] .cardContainer {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme='dark'] .cardContainer:hover {
-  background-color: var(--burgundy);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .cardContainer *:last-child {

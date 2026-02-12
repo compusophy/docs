@@ -1,6 +1,11 @@
 /**
  * Improved custom.css for Docusaurus + Tailwind CSS integration
  * Optimized for better minification and maintainability
+ *
+ * IMPORTANT: Docusaurus component overrides MUST be outside @layer blocks.
+ * Tailwind's PostCSS pipeline mangles/drops selectors it doesn't recognize
+ * when they're inside @layer components. Only put Tailwind-consumed classes
+ * (utilities, custom components used in JSX with className) inside @layer.
  */
 
 /* Tailwind directives - MUST be at the top */
@@ -8,51 +13,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font Face Declarations - Early in the cascade */
+/* Font Face Declarations - Variable fonts (single file, all weights) */
 @font-face {
   font-family: "Inter";
-  src: url("/fonts/Inter-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-Bold.woff2") format("woff2");
-  font-weight: 700;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "AtAero";
-  src: url("/fonts/AtAero-Regular.woff2") format("woff2");
-  font-weight: 400;
+  src: url("/fonts/AtAeroVARVF.woff2") format("woff2");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "AtAero";
-  src: url("/fonts/AtAero-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "AtAero";
-  src: url("/fonts/AtAero-Semibold.woff2") format("woff2");
-  font-weight: 600;
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMonoVF.woff2") format("woff2");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
@@ -78,6 +59,10 @@
   --light-green: #dbf4dc;
   --light-orange: #ffe8df;
 
+  /* Body text color: burgundy on light (per brand guide, never raw black) */
+  --ifm-font-color-base: var(--burgundy);
+  --ifm-heading-color: var(--burgundy);
+
   /* Docusaurus Theme Colors */
   --ifm-color-primary: var(--pink);
   --ifm-color-primary-dark: #e60062;
@@ -92,18 +77,31 @@
   --valid-value-color: #ff0172;
   --valid-value-border: #e5e5e5;
 
+  /* Monospace Font */
+  --ifm-font-family-monospace: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Secondary text for nav/sidebar/breadcrumbs — readable on light backgrounds */
+  --text-secondary: #6b6462;
+
   /* Layout Background Variables */
-  --bg-navbar: #f8f8f8;
-  --bg-sidebar: #f0e9e4;
-  --bg-page: #f8f8f8;
+  --bg-navbar: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-page: #ffffff;
   --bg-footer: #6d012e;
   --bg-card: #ffffff;
+
+  /* Semantic Border Variables */
+  --border-subtle: rgba(190, 184, 180, 0.3);
+  --border-hover: rgba(190, 184, 180, 0.6);
+
+  /* Unify Infima's TOC/sidebar border with our border system */
+  --ifm-toc-border-color: var(--border-subtle);
 }
 
 [data-theme="dark"] {
-  /* Dark Theme Backgrounds */
-  --ifm-background-color: #1a0f15;
-  --ifm-background-surface-color: #2a101b;
+  /* Dark Theme Backgrounds - clean neutrals, no burgundy tint */
+  --ifm-background-color: #111111;
+  --ifm-background-surface-color: #1a1a1a;
   --ifm-font-color-base: #f0e9e4;
   --ifm-color-content-secondary: #beb8b4;
 
@@ -112,31 +110,36 @@
   --ifm-color-primary-dark: #e6005f;
   --ifm-color-primary-darker: #cc0055;
   --ifm-color-primary-darkest: #990040;
-  --ifm-color-primary-light: #ff2a7e;
-  --ifm-color-primary-lighter: #ff5594;
-  --ifm-color-primary-lightest: #ff87b0;
+  --ifm-color-primary-light: #ff7aaf;
+  --ifm-color-primary-lighter: #ff9ec3;
+  --ifm-color-primary-lightest: #ffc2d8;
+
+  /* Secondary text — original grey is fine on dark backgrounds */
+  --text-secondary: #beb8b4;
 
   /* Dark Theme Custom Properties */
   --valid-value-bg: rgba(255, 5, 109, 0.12);
   --valid-value-color: #ff85b4;
   --valid-value-border: rgba(255, 5, 109, 0.3);
   --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.2);
   --docusaurus-highlighted-code-line-bg: rgba(255, 5, 109, 0.05);
 
-  /* Dark Theme Layout Backgrounds */
-  --bg-navbar: #151415;
-  --bg-sidebar: #1b1a1c;
-  --bg-page: #1e1d1f;
-  --bg-footer: #161517;
-  --bg-card: #252426;
+  /* Dark Theme Layout Backgrounds - clean neutral darks */
+  --bg-navbar: #111111;
+  --bg-sidebar: #111111;
+  --bg-page: #111111;
+  --bg-footer: #0e0e0e;
+  --bg-card: #1e1e1e;
 }
 
 /* ================================================
-   BASE LAYER - Global base styles
+   BASE LAYER - Global base styles (Tailwind base)
    ================================================ */
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--ifm-navbar-height) + 1rem);
   }
 
   body {
@@ -151,87 +154,39 @@
   h5,
   h6 {
     font-family: "AtAero", sans-serif !important;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--burgundy);
+  }
+
+  [data-theme="dark"] h1,
+  [data-theme="dark"] h2,
+  [data-theme="dark"] h3,
+  [data-theme="dark"] h4,
+  [data-theme="dark"] h5,
+  [data-theme="dark"] h6 {
+    color: var(--ifm-font-color-base);
+  }
+
+  /* Heading letter-spacing for modern tight feel */
+  h1 {
+    letter-spacing: -0.04em;
+  }
+
+  h2 {
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    letter-spacing: -0.015em;
   }
 }
 
 /* ================================================
-   COMPONENTS LAYER - Reusable component styles
+   TAILWIND COMPONENTS LAYER
+   Only for classes consumed by Tailwind (used in JSX className)
    ================================================ */
 @layer components {
-  /* Navigation */
-  .navbar {
-    background-color: var(--bg-navbar);
-  }
-
-  .navbar__title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-left: 0.5rem;
-    font-family: "AtAero", sans-serif;
-  }
-
-  /* Sidebar */
-  .theme-doc-sidebar-container {
-    background-color: var(--bg-sidebar);
-  }
-
-  /* Main Layout */
-  .main-wrapper {
-    background-color: var(--bg-page);
-  }
-
-  /* Footer - Override the CSS custom property that Docusaurus uses */
-  .footer--dark {
-    --ifm-footer-background-color: transparent !important;
-    --ifm-footer-color: var(--white) !important;
-    --ifm-footer-link-color: var(--white) !important;
-    --ifm-footer-title-color: var(--white) !important;
-  }
-
-  [data-theme="dark"] .footer--dark {
-    --ifm-footer-color: var(--light-grey) !important;
-    --ifm-footer-link-color: var(--light-grey) !important;
-    --ifm-footer-title-color: var(--light-grey) !important;
-  }
-
-  /* Apply the gradient background with maximum specificity using bg-burgundy-pink-4 */
-  footer.footer.footer--dark,
-  .footer.footer--dark,
-  footer[class*="footer--dark"],
-  .theme-doc-footer-wrapper footer {
-    background: linear-gradient(
-      180deg,
-      var(--pink) -130%,
-      var(--burgundy) 120%
-    ) !important;
-    background-color: var(--burgundy) !important; /* fallback */
-  }
-
-  .footer--dark a {
-    color: inherit;
-  }
-
-  /* Cards */
-  .card,
-  .cardContainer {
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
-    transition: background-color 200ms;
-    padding: 1.5rem;
-    border: none;
-    background-color: var(--bg-card);
-  }
-
-  [data-theme="light"] .card:hover,
-  [data-theme="light"] .cardContainer:hover {
-    background-color: var(--light-pink);
-  }
-
-  [data-theme="dark"] .card:hover,
-  [data-theme="dark"] .cardContainer:hover {
-    background-color: var(--burgundy);
-  }
-
   /* Custom Component: Valid Value Badge */
   .valid-value {
     display: inline-block;
@@ -292,7 +247,7 @@
 }
 
 /* ================================================
-   UTILITIES LAYER - Single-purpose utility classes
+   TAILWIND UTILITIES LAYER
    ================================================ */
 @layer utilities {
   /* Brand Gradient Utilities */
@@ -412,29 +367,827 @@
 }
 
 /* ================================================
-   THEME-SPECIFIC OVERRIDES
+   DOCUSAURUS COMPONENT OVERRIDES
+   MUST be outside @layer to avoid Tailwind PostCSS mangling.
+   Unlayered CSS beats all Docusaurus cascade layers.
    ================================================ */
+
+/* ---- Layout Constraints ---- */
+[class*='docRoot'] {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar__inner {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.theme-doc-markdown {
+  max-width: 860px;
+}
+
+/* Generous heading spacing inside doc content only */
+.theme-doc-markdown h2 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.theme-doc-markdown h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ---- Navbar ---- */
+.navbar {
+  background: var(--bg-navbar);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: none;
+}
+
+/* No navbar border on homepage (hero bleeds into navbar) */
+:has(> .main-wrapper .hero) .navbar {
+  border-bottom: none;
+}
+
+.navbar__brand {
+  align-items: center;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo img {
+  height: 22px;
+  width: auto;
+  transition: opacity 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.navbar__brand:hover .navbar__logo img {
+  opacity: 0.7;
+}
+
+.navbar__title {
+  display: none;
+}
+
+.navbar__link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-font-color-base);
+  border-radius: 8px;
+  padding: 0.375rem 0.75rem;
+  margin: 0 0.125rem;
+  transition: all 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.navbar__link:hover {
+  color: var(--ifm-font-color-base);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .navbar__link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.navbar__link--active {
+  color: var(--pink);
+  font-weight: 600;
+  background-color: rgba(255, 5, 109, 0.08);
+}
+
+[data-theme="dark"] .navbar__link--active {
+  background-color: rgba(255, 85, 148, 0.15);
+}
+
+.navbar__link--active:hover {
+  color: var(--pink);
+  background-color: rgba(255, 5, 109, 0.12);
+}
+
+[data-theme="dark"] .navbar__link--active:hover {
+  background-color: rgba(255, 85, 148, 0.2);
+}
+
+/* ---- Breadcrumbs ---- */
+.breadcrumbs__link {
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--pink);
+}
+
+/* ---- Sidebar ---- */
+.theme-doc-sidebar-container {
+  background-color: var(--bg-sidebar);
+  padding-top: 1rem;
+}
+
+/* ---- Sidebar Active Indicator ---- */
+.menu__link {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  border-left: 3px solid transparent;
+  border-radius: 0 8px 8px 0;
+  transition: all 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.menu__link:hover:not(.menu__link--active) {
+  color: var(--ifm-font-color-base);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .menu__link:hover:not(.menu__link--active) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.menu__link--active {
+  color: var(--pink);
+  border-left: 3px solid var(--pink);
+  font-weight: 700;
+  background-color: rgba(255, 5, 109, 0.08);
+}
+
+.menu__link--active:hover {
+  color: var(--pink);
+  background-color: rgba(255, 5, 109, 0.12);
+}
+
+/* ---- Table of Contents (right sidebar) ---- */
+.table-of-contents__link {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  transition: color 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.table-of-contents__link:hover {
+  color: var(--ifm-font-color-base);
+}
+
+.table-of-contents__link--active {
+  color: var(--pink);
+  font-weight: 700;
+}
+
+/* ---- Main Layout ---- */
+.main-wrapper {
+  background-color: var(--bg-page);
+}
+
+/* ---- Footer ---- */
+/* Light theme: light grey bg with dark text */
+.footer--dark {
+  --ifm-footer-background-color: transparent !important;
+  --ifm-footer-color: var(--text-secondary) !important;
+  --ifm-footer-link-color: var(--text-secondary) !important;
+  --ifm-footer-title-color: var(--ifm-font-color-base) !important;
+}
+
+/* Dark theme: light text on dark bg */
+[data-theme="dark"] .footer--dark {
+  --ifm-footer-color: var(--text-secondary) !important;
+  --ifm-footer-link-color: var(--text-secondary) !important;
+  --ifm-footer-title-color: var(--ifm-font-color-base) !important;
+}
+
+/* Footer background - same as page */
+footer.footer.footer--dark,
+.footer.footer--dark,
+footer[class*="footer--dark"],
+.theme-doc-footer-wrapper footer {
+  background: var(--bg-page) !important;
+  background-color: var(--bg-page) !important;
+  border-top: 1px solid var(--border-subtle);
+}
+
+[data-theme="dark"] footer.footer.footer--dark,
+[data-theme="dark"] .footer.footer--dark,
+[data-theme="dark"] footer[class*="footer--dark"],
+[data-theme="dark"] .theme-doc-footer-wrapper footer {
+  background: var(--bg-page) !important;
+  background-color: var(--bg-page) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer--dark a {
+  color: inherit;
+}
+
+.footer__link-item {
+  font-size: 0.8125rem;
+}
+
+.footer__link-item:hover {
+  text-decoration: none;
+}
+
+.footer__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer__copyright {
+  font-size: 0.75rem;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+/* Hide the default navbar color-mode toggle (we use footer switcher instead) */
+.navbar [class*='colorModeToggle'],
+.navbar [class*='toggle_'] > button[class*='toggleButton'] {
+  display: none !important;
+}
+
+/* ---- Cards - border-based, no shadows ---- */
+.card,
+.cardContainer {
+  border-radius: 12px;
+  box-shadow: none !important;
+  border: 1px solid var(--border-subtle);
+  transition: border-color 300ms cubic-bezier(0, 0, 0.5, 1);
+  padding: 1.5rem;
+  background-color: var(--bg-card);
+}
+
+/* Compact DocCard styling (category index pages) */
+.card.padding--lg {
+  padding: 0.875rem 1.25rem !important;
+}
+
+.card h2,
+.cardContainer h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.card p {
+  margin-bottom: 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.card:hover,
+.cardContainer:hover,
+a.card:hover {
+  border-color: var(--border-hover);
+  box-shadow: none !important;
+  color: var(--ifm-font-color-base);
+}
+
+.card:hover h2,
+.cardContainer:hover h2,
+a.card:hover h2 {
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .cardContainer {
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .cardContainer:hover,
+[data-theme="dark"] a.card:hover {
+  border-color: var(--border-hover);
+}
+
+/* ---- Dark Theme Overrides ---- */
+[data-theme="dark"] table,
+[data-theme="dark"] td,
+[data-theme="dark"] th,
+[data-theme="dark"] .theme-doc-sidebar-container,
+[data-theme="dark"] .pagination-nav__link {
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .theme-doc-markdown {
+  border-left: none;
+}
+
+[data-theme="dark"] .pagination-nav__link:hover {
+  border-color: var(--pink);
+}
+
+[data-theme="dark"] .theme-doc-markdown,
+[data-theme="dark"] .theme-doc-content {
+  background-color: var(--bg-page);
+}
+
+/* ================================================
+   PHASE 2: Content Element Styling
+   ================================================ */
+
+/* ---- 2.1 Modern Admonitions ---- */
+.alert {
+  --ifm-alert-border-radius: 8px;
+  --ifm-alert-border-width: 0px;
+  --ifm-alert-border-left-width: 3px;
+  --ifm-alert-shadow: none;
+}
+
+/* Note (secondary) */
+.alert--secondary {
+  --ifm-alert-background-color: rgba(190, 184, 180, 0.12);
+  --ifm-alert-border-color: var(--dark-grey);
+}
+
+/* Tip (success) */
+.alert--success {
+  --ifm-alert-background-color: rgba(34, 169, 65, 0.1);
+  --ifm-alert-border-color: var(--green);
+}
+
+/* Info */
+.alert--info {
+  --ifm-alert-background-color: rgba(2, 135, 242, 0.1);
+  --ifm-alert-border-color: var(--blue);
+}
+
+/* Warning / Caution */
+.alert--warning {
+  --ifm-alert-background-color: rgba(255, 96, 0, 0.1);
+  --ifm-alert-border-color: var(--orange);
+}
+
+/* Danger */
+.alert--danger {
+  --ifm-alert-background-color: rgba(250, 56, 62, 0.1);
+  --ifm-alert-border-color: #fa383e;
+}
+
+/* Details/collapsible uses alert--info, give it neutral styling */
+details.alert {
+  --ifm-alert-background-color: rgba(0, 0, 0, 0.03);
+  --ifm-alert-border-color: rgba(190, 184, 180, 0.4);
+  --ifm-alert-border-left-width: 0px;
+  border: 1px solid var(--border-subtle);
+}
+
+[data-theme="dark"] details.alert {
+  --ifm-alert-background-color: rgba(255, 255, 255, 0.05);
+  --ifm-alert-border-color: var(--border-subtle);
+  border-color: var(--border-subtle);
+}
+
+/* ---- 2.2 Modern Tables ---- */
+.theme-doc-markdown table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  width: 100%;
+}
+
+.theme-doc-markdown table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid var(--border-subtle);
+  border-right: none;
+}
+
+.theme-doc-markdown table td {
+  border-bottom: 1px solid rgba(190, 184, 180, 0.15);
+  border-right: none;
+}
+
+.theme-doc-markdown table tr:last-child td {
+  border-bottom: none;
+}
+
+[data-theme="dark"] .theme-doc-markdown table {
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .theme-doc-markdown table th {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .theme-doc-markdown table td {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ---- 2.3 Inline Code Styling ---- */
+.theme-doc-markdown code:not(pre code) {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: inherit;
+  font-size: 0.875em;
+}
+
+[data-theme="dark"] .theme-doc-markdown code:not(pre code) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-subtle);
+}
+
+/* ---- 2.4 Code Block Border-Radius ---- */
+.theme-doc-markdown pre,
+.prism-code {
+  border-radius: 12px;
+}
+
+/* Code block title bar */
+.theme-code-block-highlighted-line {
+  border-radius: 0;
+}
+
+div[class*="codeBlockTitle"] {
+  border-radius: 12px 12px 0 0;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8rem;
+}
+
+div[class*="codeBlockTitle"] + pre,
+div[class*="codeBlockTitle"] + pre .prism-code {
+  border-radius: 0 0 12px 12px;
+}
+
+/* ---- 2.5 Pagination Nav ---- */
+.pagination-nav__link {
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  padding: 1.25rem;
+  transition: all 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--pink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 5, 109, 0.08);
+}
+
+.pagination-nav__sublabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .pagination-nav__link {
+  border-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .pagination-nav__link:hover {
+  border-color: var(--pink);
+  box-shadow: 0 4px 12px rgba(255, 5, 109, 0.12);
+}
+
+/* ---- 2.6 Link Styling ---- */
+.theme-doc-markdown a:not(.hash-link):not(.card):not([class*='cardContainer']) {
+  color: var(--pink);
+  text-decoration: none;
+  background-image: linear-gradient(var(--pink), var(--pink));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.theme-doc-markdown a:not(.hash-link):not(.card):not([class*='cardContainer']):hover {
+  background-size: 100% 1px;
+}
+
+/* ---- Search (docusaurus-search-local) ---- */
+/* Design tokens — light mode */
+:root {
+  --search-local-modal-background: #ffffff;
+  --search-local-modal-shadow: 0 8px 32px rgba(64, 0, 27, 0.08), 0 2px 6px rgba(64, 0, 27, 0.06);
+  --search-local-modal-width: 560px;
+  --search-local-hit-background: #ffffff;
+  --search-local-hit-shadow: 0 1px 3px rgba(64, 0, 27, 0.06);
+  --search-local-hit-color: var(--burgundy);
+  --search-local-highlight-color: var(--pink);
+  --search-local-muted-color: var(--text-secondary);
+  --search-local-hit-active-color: var(--burgundy);
+  --search-local-input-active-border-color: var(--pink);
+  /* Search icon — same color as nav links (#6b6462 = --text-secondary) */
+  --ifm-navbar-search-input-icon: url('data:image/svg+xml;utf8,<svg fill="%236b6462" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" height="16px" width="16px"><path d="M6.02945,10.20327a4.17382,4.17382,0,1,1,4.17382-4.17382A4.15609,4.15609,0,0,1,6.02945,10.20327Zm9.69195,4.2199L10.8989,9.59979A5.88021,5.88021,0,0,0,12.058,6.02856,6.00467,6.00467,0,1,0,9.59979,10.8989l4.82338,4.82338a.89729.89729,0,0,0,1.29912,0,.89749.89749,0,0,0-.00087-1.29909Z" /></svg>');
+  --ifm-navbar-search-input-color: var(--text-secondary);
+  --ifm-navbar-search-input-placeholder-color: var(--text-secondary);
+}
+
+/* Design tokens — dark mode */
 [data-theme="dark"] {
-  /* Dark theme border colors */
-  table,
-  td,
-  th,
-  .theme-doc-sidebar-container,
-  .pagination-nav__link {
-    border-color: var(--border-subtle);
-  }
+  --search-local-modal-background: #1a1a1a;
+  --search-local-modal-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --search-local-hit-background: #222222;
+  --search-local-hit-shadow: none;
+  --search-local-hit-color: #f0e9e4;
+  --search-local-highlight-color: var(--pink);
+  --search-local-muted-color: var(--dark-grey);
+  --search-local-hit-active-color: #f0e9e4;
+  --search-local-input-active-border-color: var(--pink);
+  /* Search icon — same color as dark mode nav links (#beb8b4 = --dark-grey) */
+  --ifm-navbar-search-input-icon: url('data:image/svg+xml;utf8,<svg fill="%23beb8b4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" height="16px" width="16px"><path d="M6.02945,10.20327a4.17382,4.17382,0,1,1,4.17382-4.17382A4.15609,4.15609,0,0,1,6.02945,10.20327Zm9.69195,4.2199L10.8989,9.59979A5.88021,5.88021,0,0,0,12.058,6.02856,6.00467,6.00467,0,1,0,9.59979,10.8989l4.82338,4.82338a.89729.89729,0,0,0,1.29912,0,.89749.89749,0,0,0-.00087-1.29909Z" /></svg>');
+  --ifm-navbar-search-input-color: var(--dark-grey);
+  --ifm-navbar-search-input-placeholder-color: var(--dark-grey);
+}
 
-  .theme-doc-markdown {
-    border-left: none;
-  }
+/* Search input in navbar */
+.navbar__search-input {
+  border-radius: 8px !important;
+  background: var(--bg-navbar) var(--ifm-navbar-search-input-icon) no-repeat 0.75rem center / 1rem 1rem !important;
+  border: 1px solid rgba(190, 184, 180, 0.4) !important;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.8125rem !important;
+  height: 2.25rem !important;
+  color: var(--text-secondary) !important;
+  transition: all 300ms cubic-bezier(0, 0, 0.5, 1) !important;
+}
 
-  .pagination-nav__link:hover {
-    border-color: var(--pink);
-  }
+.navbar__search-input::-moz-placeholder,
+.navbar__search-input::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.6;
+}
 
-  /* Dark theme content backgrounds */
-  .theme-doc-markdown,
-  .theme-doc-content {
-    background-color: var(--bg-page);
+.navbar__search-input:hover {
+  border-color: rgba(190, 184, 180, 0.7) !important;
+}
+
+.navbar__search-input:focus,
+.navbar__search-input:active {
+  border-color: var(--pink) !important;
+  border-width: 1.5px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: var(--ifm-font-color-base) !important;
+}
+
+[data-theme="dark"] .navbar__search-input {
+  border-color: var(--border-subtle) !important;
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .navbar__search-input:hover {
+  border-color: var(--border-hover) !important;
+}
+
+[data-theme="dark"] .navbar__search-input:focus,
+[data-theme="dark"] .navbar__search-input:active {
+  border-color: var(--pink) !important;
+  color: var(--ifm-font-color-base) !important;
+}
+
+/* Dropdown menu (results container) */
+[class*='dropdownMenu'] {
+  border-radius: 8px !important;
+  border: 1px solid rgba(190, 184, 180, 0.2) !important;
+  font-family: "Inter", sans-serif !important;
+  overflow: hidden;
+}
+
+[data-theme="dark"] [class*='dropdownMenu'] {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Individual search result items */
+[class*='suggestion'] {
+  border-radius: 6px !important;
+  font-family: "Inter", sans-serif !important;
+  transition: background-color 150ms ease !important;
+}
+
+/* Active (keyboard-selected / hovered) result — subtle highlight */
+[class*='suggestion'][class*='cursor'] {
+  background-color: var(--beige) !important;
+}
+
+[data-theme="dark"] [class*='suggestion'][class*='cursor'] {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+[class*='suggestion'][class*='cursor'] * {
+  color: inherit !important;
+}
+
+[class*='suggestion'][class*='cursor'] mark {
+  color: var(--pink) !important;
+}
+
+/* Result text — title and path */
+[class*='hitTitle'] {
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+[class*='hitPath'] {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Highlighted matching text */
+[class*='hitWrapper'] mark {
+  background: none !important;
+  color: var(--pink) !important;
+  font-weight: 600;
+}
+
+/* Footer link ("See all results") */
+[class*='hitFooter'] a {
+  color: var(--pink) !important;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+[class*='hitFooter'] a:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+/* Keyboard shortcut hint badges */
+[class*='searchHint'] {
+  border-radius: 4px !important;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.6875rem !important;
+  border-color: rgba(190, 184, 180, 0.4) !important;
+  box-shadow: inset 0 -1px 0 rgba(190, 184, 180, 0.4) !important;
+  color: var(--text-secondary) !important;
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] [class*='searchHint'] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.12) !important;
+  color: var(--dark-grey) !important;
+}
+
+/* ---- Search Results Page ---- */
+/* Constrain page width for readability */
+.container.margin-vert--lg:has([class*='searchQueryInput']) {
+  max-width: 720px !important;
+}
+
+/* Page title */
+.container.margin-vert--lg > h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+  color: var(--ifm-font-color-base);
+}
+
+/* Results count text */
+.container.margin-vert--lg > .row + p,
+.container.margin-vert--lg > .row ~ p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+/* Search input on results page */
+[class*='searchQueryInput'] {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-subtle) !important;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 0.75rem !important;
+  background: transparent !important;
+  color: var(--ifm-font-color-base) !important;
+  transition: border-color 200ms ease !important;
+  margin-bottom: 0.5rem !important;
+}
+
+[class*='searchQueryInput']:focus {
+  border-color: var(--pink) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+[data-theme="dark"] [class*='searchQueryInput'] {
+  border-color: var(--border-subtle) !important;
+}
+
+[data-theme="dark"] [class*='searchQueryInput']:focus {
+  border-color: var(--pink) !important;
+}
+
+/* Individual result items — card style (article only, not child <p> elements) */
+article[class*='searchResultItem'] {
+  padding: 0.75rem 1rem !important;
+  border: 1px solid rgba(190, 184, 180, 0.15) !important;
+  border-radius: 8px !important;
+  margin-bottom: 0.5rem !important;
+  transition: background-color 150ms ease, border-color 150ms ease !important;
+  cursor: pointer;
+}
+
+article[class*='searchResultItem']:hover {
+  background-color: rgba(240, 233, 228, 0.35);
+  border-color: rgba(190, 184, 180, 0.3) !important;
+}
+
+[data-theme="dark"] article[class*='searchResultItem'] {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-theme="dark"] article[class*='searchResultItem']:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-subtle) !important;
+}
+
+/* Result title link */
+article[class*='searchResultItem'] > h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+article[class*='searchResultItem'] > h2 a {
+  color: var(--ifm-font-color-base) !important;
+  text-decoration: none !important;
+  background-image: none !important;
+  background-size: 0 !important;
+}
+
+/* Breadcrumb path */
+[class*='searchResultItemPath'] {
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.6875rem !important;
+  color: var(--text-secondary) !important;
+  opacity: 0.6;
+  margin-top: 0.125rem !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Content summary */
+[class*='searchResultItemSummary'] {
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.8125rem !important;
+  font-style: normal !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.5;
+  margin-top: 0.25rem !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Highlighted mark on search results page */
+article[class*='searchResultItem'] mark {
+  background: rgba(255, 5, 109, 0.1) !important;
+  color: var(--pink) !important;
+  padding: 0.05em 0.2em;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+[data-theme="dark"] article[class*='searchResultItem'] mark {
+  background: rgba(255, 5, 109, 0.18) !important;
+}
+
+/* ---- Mobile sidebar: match theme backgrounds ---- */
+.navbar-sidebar {
+  background-color: var(--bg-page);
+}
+
+.navbar-sidebar__brand {
+  background-color: var(--bg-page);
+}
+
+/* ---- Burger / close icons: slightly smaller ---- */
+.navbar__toggle svg {
+  width: 22px;
+  height: 22px;
+}
+
+.navbar-sidebar__close svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Hide right-side external links on narrower viewports ---- */
+@media (max-width: 1280px) {
+  .navbar__items--right .navbar__item[href*="quilibrium.com"],
+  .navbar__items--right .navbar__item[href*="github.com"] {
+    display: none;
   }
 }
