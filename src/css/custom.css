@@ -754,7 +754,9 @@ details.alert {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--border-subtle);
-  width: 100%;
+  width: auto !important;
+  max-width: 100%;
+  display: table;
 }
 
 .theme-doc-markdown table th {
@@ -765,6 +767,7 @@ details.alert {
   background-color: rgba(0, 0, 0, 0.02);
   border-bottom: 1px solid var(--border-subtle);
   border-right: none;
+  white-space: nowrap;
 }
 
 .theme-doc-markdown table td {
@@ -826,7 +829,26 @@ div[class*="codeBlockTitle"] + pre .prism-code {
   border-radius: 0 0 12px 12px;
 }
 
-/* ---- 2.5 Pagination Nav ---- */
+/* ---- 2.5 Code Comment Styling ---- */
+.token.comment,
+span.token.comment,
+.prism-code .token.comment,
+pre code .token.comment {
+  color: #9ca3af !important;
+  font-style: italic !important;
+  opacity: 0.8;
+}
+
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] span.token.comment,
+[data-theme="dark"] .prism-code .token.comment,
+[data-theme="dark"] pre code .token.comment {
+  color: #a1a1aa !important;
+  font-style: italic !important;
+  opacity: 0.7;
+}
+
+/* ---- 2.6 Pagination Nav ---- */
 .pagination-nav__link {
   border-radius: 12px;
   border: 1px solid var(--border-subtle);
@@ -855,7 +877,7 @@ div[class*="codeBlockTitle"] + pre .prism-code {
   box-shadow: 0 4px 12px rgba(255, 5, 109, 0.12);
 }
 
-/* ---- 2.6 Link Styling ---- */
+/* ---- 2.7 Link Styling ---- */
 .theme-doc-markdown a:not(.hash-link):not(.card):not([class*='cardContainer']) {
   color: var(--pink);
   text-decoration: none;

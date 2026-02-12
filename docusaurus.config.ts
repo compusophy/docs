@@ -259,7 +259,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.oneLight,
       darkTheme: prismThemes.oneDark,
-      additionalLanguages: ["protobuf", "go", "turtle"],
+      additionalLanguages: ["protobuf", "go", "turtle", "bash", "yaml"],
     },
   } satisfies Preset.ThemeConfig,
 };
