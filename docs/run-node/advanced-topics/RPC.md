@@ -1,10 +1,14 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 ---
 
 # RPC
 
-Remote Procedure Call support on Quilibrium allows hybridized offline-online mode, making management of common network assets (Accounts, Coins, Transactions) for more complex key management scenarios possible. 
+:::info Advanced Topic
+This page is for experienced users who want to build custom node management tools. Most node operators should use [qclient](/docs/run-node/qclient/qclient-101) for node management instead.
+:::
+
+Remote Procedure Call support on Quilibrium allows hybridized offline-online mode, making management of common network assets (Accounts, Coins, Transactions) for more complex key management scenarios possible.
 This document serves to capture both the raw RPC documentation following the protobufs, and then specific management scenarios for cold custody, warm/hot custody, and MPC custody. 
 
 :::danger

@@ -372,6 +372,105 @@
    Unlayered CSS beats all Docusaurus cascade layers.
    ================================================ */
 
+/* ---- Custom Minimal Scrollbars ---- */
+/* Main page scrollbar (body and html) */
+html,
+body {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(190, 184, 180, 0.6) transparent;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(190, 184, 180, 0.6);
+  border-radius: 7px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 200ms ease;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(190, 184, 180, 0.8);
+}
+
+/* Dark theme main scrollbar */
+[data-theme="dark"] html,
+[data-theme="dark"] body {
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+[data-theme="dark"] html::-webkit-scrollbar-thumb,
+[data-theme="dark"] body::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] html::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Code blocks - slightly more visible scrollbars */
+.prism-code::-webkit-scrollbar,
+pre::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.prism-code::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb {
+  background-color: rgba(190, 184, 180, 0.4);
+  border-radius: 3px;
+}
+
+.prism-code::-webkit-scrollbar-thumb:hover,
+pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(190, 184, 180, 0.6);
+}
+
+[data-theme="dark"] .prism-code::-webkit-scrollbar-thumb,
+[data-theme="dark"] pre::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .prism-code::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] pre::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Sidebar scrollbar */
+.theme-doc-sidebar-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-thumb {
+  background-color: rgba(190, 184, 180, 0.3);
+  border-radius: 3px;
+}
+
+.theme-doc-sidebar-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(190, 184, 180, 0.5);
+}
+
+[data-theme="dark"] .theme-doc-sidebar-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .theme-doc-sidebar-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
 /* ---- Layout Constraints ---- */
 [class*='docRoot'] {
   max-width: 1440px;
@@ -701,36 +800,121 @@ a.card:hover h2 {
   --ifm-alert-border-width: 0px;
   --ifm-alert-border-left-width: 3px;
   --ifm-alert-shadow: none;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
-/* Note (secondary) */
+/* Admonition title styling */
+.alert .admonition-heading {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Note (secondary) - Light theme */
 .alert--secondary {
   --ifm-alert-background-color: rgba(190, 184, 180, 0.12);
   --ifm-alert-border-color: var(--dark-grey);
+  --ifm-alert-foreground-color: #6b6462;
+  color: #5a5654;
 }
 
-/* Tip (success) */
+.alert--secondary .admonition-heading {
+  color: #6b6462;
+}
+
+/* Tip (success) - Light theme */
 .alert--success {
   --ifm-alert-background-color: rgba(34, 169, 65, 0.1);
   --ifm-alert-border-color: var(--green);
+  --ifm-alert-foreground-color: #22a941;
+  color: #527d5c;
 }
 
-/* Info */
+.alert--success .admonition-heading {
+  color: #22a941;
+}
+
+/* Info - Light theme */
 .alert--info {
   --ifm-alert-background-color: rgba(2, 135, 242, 0.1);
   --ifm-alert-border-color: var(--blue);
+  --ifm-alert-foreground-color: #0287f2;
+  color: #4a6a8a;
 }
 
-/* Warning / Caution */
+.alert--info .admonition-heading {
+  color: #0287f2;
+}
+
+/* Warning / Caution - Light theme */
 .alert--warning {
   --ifm-alert-background-color: rgba(255, 96, 0, 0.1);
   --ifm-alert-border-color: var(--orange);
+  --ifm-alert-foreground-color: #ff6000;
+  color: #8a6542;
 }
 
-/* Danger */
+.alert--warning .admonition-heading {
+  color: #ff6000;
+}
+
+/* Danger - Light theme */
 .alert--danger {
   --ifm-alert-background-color: rgba(250, 56, 62, 0.1);
   --ifm-alert-border-color: #fa383e;
+  --ifm-alert-foreground-color: #fa383e;
+  color: #8a5256;
+}
+
+.alert--danger .admonition-heading {
+  color: #fa383e;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .alert--secondary {
+  --ifm-alert-foreground-color: #beb8b4;
+  color: #b5b0ab;
+}
+
+[data-theme="dark"] .alert--secondary .admonition-heading {
+  color: #beb8b4;
+}
+
+[data-theme="dark"] .alert--success {
+  --ifm-alert-foreground-color: #51cf66;
+  color: #7aad88;
+}
+
+[data-theme="dark"] .alert--success .admonition-heading {
+  color: #51cf66;
+}
+
+[data-theme="dark"] .alert--info {
+  --ifm-alert-foreground-color: #4dabf7;
+  color: #7aa5b8;
+}
+
+[data-theme="dark"] .alert--info .admonition-heading {
+  color: #4dabf7;
+}
+
+[data-theme="dark"] .alert--warning {
+  --ifm-alert-foreground-color: #ff922b;
+  color: #c09a70;
+}
+
+[data-theme="dark"] .alert--warning .admonition-heading {
+  color: #ff922b;
+}
+
+[data-theme="dark"] .alert--danger {
+  --ifm-alert-foreground-color: #ff6b6b;
+  color: #c09090;
+}
+
+[data-theme="dark"] .alert--danger .admonition-heading {
+  color: #ff6b6b;
 }
 
 /* Details/collapsible uses alert--info, give it neutral styling */
@@ -739,6 +923,24 @@ details.alert {
   --ifm-alert-border-color: rgba(190, 184, 180, 0.4);
   --ifm-alert-border-left-width: 0px;
   border: 1px solid var(--border-subtle);
+}
+
+/* Links inside admonitions - higher specificity to override global link styles */
+.theme-doc-markdown .alert a,
+.alert a {
+  color: inherit !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 2px !important;
+  background-image: none !important;
+  background-size: 0 !important;
+  transition: opacity 200ms ease !important;
+}
+
+.theme-doc-markdown .alert a:hover,
+.alert a:hover {
+  opacity: 0.7 !important;
+  background-size: 0 !important;
 }
 
 [data-theme="dark"] details.alert {
@@ -754,7 +956,9 @@ details.alert {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--border-subtle);
-  width: 100%;
+  width: auto !important;
+  max-width: 100%;
+  display: table;
 }
 
 .theme-doc-markdown table th {
@@ -765,6 +969,7 @@ details.alert {
   background-color: rgba(0, 0, 0, 0.02);
   border-bottom: 1px solid var(--border-subtle);
   border-right: none;
+  white-space: nowrap;
 }
 
 .theme-doc-markdown table td {
@@ -826,7 +1031,26 @@ div[class*="codeBlockTitle"] + pre .prism-code {
   border-radius: 0 0 12px 12px;
 }
 
-/* ---- 2.5 Pagination Nav ---- */
+/* ---- 2.5 Code Comment Styling ---- */
+.token.comment,
+span.token.comment,
+.prism-code .token.comment,
+pre code .token.comment {
+  color: #9ca3af !important;
+  font-style: italic !important;
+  opacity: 0.8;
+}
+
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] span.token.comment,
+[data-theme="dark"] .prism-code .token.comment,
+[data-theme="dark"] pre code .token.comment {
+  color: #a1a1aa !important;
+  font-style: italic !important;
+  opacity: 0.7;
+}
+
+/* ---- 2.6 Pagination Nav ---- */
 .pagination-nav__link {
   border-radius: 12px;
   border: 1px solid var(--border-subtle);
@@ -855,7 +1079,7 @@ div[class*="codeBlockTitle"] + pre .prism-code {
   box-shadow: 0 4px 12px rgba(255, 5, 109, 0.12);
 }
 
-/* ---- 2.6 Link Styling ---- */
+/* ---- 2.7 Link Styling ---- */
 .theme-doc-markdown a:not(.hash-link):not(.card):not([class*='cardContainer']) {
   color: var(--pink);
   text-decoration: none;

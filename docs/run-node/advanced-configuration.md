@@ -16,7 +16,7 @@ Be sure to restart your node after making any configuration changes.
 
 The key section specifies the key provider configuration:
 
-```
+```yaml
 key:
   keyManagerType: file – Key manager the node should use
   keyManagerFile:
@@ -31,7 +31,7 @@ By default, the file-based key manager is specified. Support for in-memory, PKCS
 
 The p2p section specifies general connectivity and BlossomSub-specific parameters:
 
-```
+```yaml
 p2p:
   d: 8 | <int> – Optimal degree for a BlossomSub bitmask mesh
   dLo: 6 | <int> – Lower bound on the number of peers in a bitmask mesh
@@ -97,7 +97,7 @@ The `announce` parameters should only be used on situations when regular P2P mec
 
 The engine section specifies attributes which define protocol engine defaults.
 
-```
+```yaml
 engine:
   provingKeyId:  – The identifier of the proving key, retrieved by the key manager, e.g. default-proving-key
   filter:  – The section of the bloom filter the node will listen to (without 0x prefix)
@@ -143,7 +143,7 @@ Worker `announce` parameters can be used with automatic worker spawning using `b
 
 The logger section specifies optional configuration for logging master and worker process messages to process-specific files instead of printing all processes' messages to standard output.
 
-```
+```yaml
 logger:
   path: <string> – Path to the directory where master and worker log files should be stored, e.g. ".logs"
   maxSize: <int> – Maximum size of the log file in megabytes before it gets rotated, e.g. 50
@@ -156,7 +156,7 @@ logger:
 
 The database section specifies configurations of the underlying store.
 
-```
+```yaml
 db:
   path: ".config/store" | <string> – Path to the database directory
   workerPathPrefix: ".config/worker-store/%d" | <string> – Format string for worker store paths, %d is replaced with worker core ID
@@ -170,7 +170,7 @@ db:
 
 This section denotes all additional configuration values at the root of the config file.
 
-```
+```yaml
 listenGrpcMultiaddr: <multiaddr> – local multiaddr the master process will listen on for gRPC calls
 listenRESTMultiaddr: <multiaddr> – local multiaddr the master process will listen on for REST requests
 ```
@@ -187,7 +187,7 @@ Each bundle of keys/store files should live in separate folders (e.g. 1.4.19 con
 
 For the example provided, it is assumed qclient lives in the `client/` folder alongside the `node/` folder where the `.config*/` folders are contained:
 
-```
+```yaml
 qclient config prover merge ../node/.config ../node/.config1 ../node/.config2 ../node/.config3
 ```
 
@@ -201,7 +201,7 @@ To see what seniority this combination yields (minus the effective range for the
 
 Under the `engine` section noted above, add the optional field `multisigProverEnrollmentPaths`:
 
-```
+```yaml
 engine:
   # ... other items omitted ...
   multisigProverEnrollmentPaths: [
@@ -224,7 +224,7 @@ This is useful for if you already have a node running and want to add a new node
 Both nodes do not need to be on at the same time or be started/stopped together.  The only requirement is that they are both defined in the other node's `p2p.directPeers` list.
 
 ### Example
-```
+```yaml
 p2p:
   directPeers:
     - /ip4/192.168.1.100/udp/8336/quic-v1/p2p/Qm1234567890abcdef

@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # 2.1 Upgrade Guide
 
-The following guide is divided into two sections: Default Configuration (where nothing in .config/config.yml has been modified), and Advanced Configuration, for cases like specialized clusters.
+The following guide is divided into two sections: Default Configuration (where nothing in .config/config.yml has been modified), and Advanced 2.1 Settings, for cases like specialized clusters.
 
 ## Default Configuration
 
@@ -16,7 +16,7 @@ The default configuration utilizes a template string defined in the [engine sect
 
 The default configuration has an additional port required to be open for the master node process, defined in `streamListenMultiaddr` in the [p2p section](/docs/run-node/advanced-configuration#peer-to-peer-networking-section), with a default value of `/ip4/0.0.0.0/tcp/8340`. It is now mandatory that the ports for workers and master processes are open, if the node fails its reachability test, it will halt to inform you of this.
 
-## Advanced Configuration
+## Advanced 2.1 Settings
 
 ### Networking
 
