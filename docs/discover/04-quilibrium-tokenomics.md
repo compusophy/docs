@@ -1,3 +1,8 @@
+---
+title: Quilibrium Tokenomics
+description: Overview of QUIL token economics, including the generational emission model, adaptive issuance tied to network difficulty, and long-term supply projections.
+---
+
 # Quilibrium Tokenomics
 
 Quilibrium employs a generational token issuance model that dynamically adjusts based on network-wide computational progress, ensuring long-term sustainability and decentralization. Instead of a fixed emission schedule, new $QUIL emissions are triggered when the network surpasses predefined computational milestones.

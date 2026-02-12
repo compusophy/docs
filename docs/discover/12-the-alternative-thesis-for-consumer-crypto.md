@@ -1,3 +1,8 @@
+---
+title: The Alternative Thesis for Consumer Crypto
+description: Why consumer crypto needs the same usability revolution that personal computing had, and how Quilibrium is building the infrastructure to make blockchain technology truly accessible.
+---
+
 # The Alternative Thesis for Consumer Crypto
 
 :::info

@@ -1,3 +1,8 @@
+---
+title: How Quilibrium Protects Privacy Without Enabling Crime
+description: How Quilibrium balances user privacy with compliance using bloom filters, verifiable encryption, and decentralized blacklisting to prevent misuse without compromising security.
+---
+
 # How Quilibrium Protects Privacy Without Enabling Crime
 
 Quilibrium is designed to **protect user privacy** while also ensuring that it isn’t misused for illegal activities.

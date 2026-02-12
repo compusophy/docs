@@ -1,3 +1,8 @@
+---
+title: Core Technologies in Quilibrium
+description: An overview of the cryptographic and distributed systems technologies powering Quilibrium, including VDFs, oblivious transfer, E2EE, triple-ratchet, and BlossomSub.
+---
+
 # Core Technologies in Quilibrium
 
 Quilibrium's architecture is built on a foundation of advanced cryptographic and distributed systems technologies. These core components work in concert to create a secure, private, and efficient decentralized network. The following list outlines the key technologies that power Quilibrium, each addressing specific challenges in data privacy, secure communication, anonymity, and efficient data management.

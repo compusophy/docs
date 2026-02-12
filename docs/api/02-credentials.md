@@ -1,3 +1,8 @@
+---
+title: Credentials
+description: How to set up and manage QConsole credentials for authenticating with Quilibrium services, including configuration for CLI tools and third-party S3-compatible clients.
+---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 

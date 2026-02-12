@@ -1,3 +1,8 @@
+---
+title: "Quilibrium KMS: The Future of Key Management"
+description: How Quilibrium's Key Management Service uses true multi-party computation, purpose-bound keys, and programmable warm storage to eliminate private key exposure risks.
+---
+
 # Quilibrium KMS: The Future of Key Management
 
 Key management is one of the most critical aspects of security in the crypto and Web3 space.
