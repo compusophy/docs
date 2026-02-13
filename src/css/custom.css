@@ -103,6 +103,7 @@
   --ifm-background-color: #111111;
   --ifm-background-surface-color: #1a1a1a;
   --ifm-font-color-base: #f0e9e4;
+  --ifm-heading-color: #f0e9e4;
   --ifm-color-content-secondary: #beb8b4;
 
   /* Dark Theme Primary Colors */
@@ -1092,6 +1093,140 @@ pre code .token.comment {
 
 .theme-doc-markdown a:not(.hash-link):not(.card):not([class*='cardContainer']):hover {
   background-size: 100% 1px;
+}
+
+/* ================================================
+   LEARN PAGE (TSX Component) OVERRIDES
+   These pages use .learn-page wrapper with inline Tailwind.
+   Override text-slate and inline styles to match the site design system.
+   ================================================ */
+
+/* Base: override Tailwind's text-slate with design system color */
+.learn-page {
+  color: var(--ifm-font-color-base);
+  max-width: 860px;
+  line-height: 1.75;
+}
+
+/* Headings — match .theme-doc-markdown h2 spacing and site typography.
+   !important needed to beat inline Tailwind utilities (text-xl, font-medium, pt-10, pb-4). */
+.learn-page h2 {
+  color: var(--ifm-heading-color) !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+  margin-top: 3rem !important;
+  margin-bottom: 1rem !important;
+  padding: 0 !important;
+}
+
+/* Paragraphs — consistent spacing */
+.learn-page p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+/* Links — pink with animated underline (same as .theme-doc-markdown a) */
+.learn-page a:not(.hash-link) {
+  color: var(--pink);
+  text-decoration: none;
+  background-image: linear-gradient(var(--pink), var(--pink));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 300ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.learn-page a:not(.hash-link):hover {
+  background-size: 100% 1px;
+}
+
+/* Lists — restore markers stripped by Tailwind reset */
+.learn-page ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.learn-page ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.learn-page li {
+  margin-bottom: 0.5rem;
+  line-height: 1.75;
+}
+
+/* Nested ordered lists — lower-alpha (used in ObliviousTransfer) */
+.learn-page ol ol {
+  list-style-type: lower-alpha;
+}
+
+/* Inline code (not inside code-block wrappers) — match site inline code style */
+.learn-page code:not([class*="block"]) {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875em;
+  color: inherit;
+}
+
+[data-theme="dark"] .learn-page code:not([class*="block"]) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-subtle);
+}
+
+/* Code block wrappers (div with rounded-xl + bg) — match site code block appearance.
+   Don't force monospace on the wrapper itself (math blocks use font-['ui-serif']). */
+.learn-page > div > div[class*="rounded-xl"],
+.learn-page div.flex-1 > div[class*="rounded-xl"] {
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  line-height: 1.65;
+  font-size: 0.9375rem;
+}
+
+/* Code inside card blocks — always use Geist Mono, strip inline-code box styling.
+   !important needed to beat .theme-doc-markdown code:not(pre code) and font-['ui-serif']. */
+.learn-page div[class*="rounded-xl"] code {
+  font-family: var(--ifm-font-family-monospace) !important;
+  font-size: 0.875em !important;
+  line-height: 1.65;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Images — rounded corners and subtle shadow matching site feel */
+.learn-page img {
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Strong/bold — ensure proper weight */
+.learn-page b,
+.learn-page strong {
+  font-weight: 600;
+  color: var(--ifm-heading-color);
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] .learn-page {
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme="dark"] .learn-page h2 {
+  color: var(--ifm-heading-color);
+}
+
+[data-theme="dark"] .learn-page b,
+[data-theme="dark"] .learn-page strong {
+  color: var(--ifm-heading-color);
 }
 
 /* ---- Search (docusaurus-search-local) ---- */
