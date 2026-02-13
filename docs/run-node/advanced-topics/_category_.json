@@ -1,8 +1,0 @@
-{
-  "label": "Advanced Topics",
-  "position": 10,
-  "link": {
-    "type": "generated-index",
-    "description": "Advanced topics for experienced node operators, including custom tooling and specialized configurations."
-  }
-}

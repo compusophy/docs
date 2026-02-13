@@ -2,21 +2,8 @@
 sidebar_position: 6
 ---
 
-# Legacy Manual Configuration
-
-:::danger Obsolete Method
-This page documents the obsolete `release_autorun.sh` node provisioning method.
-
-**New node operators should use [qclient](/docs/run-node/qclient/setup) instead**, which is the recommended way to provision and manage the node.
-
-This page is only relevant if you're using the obsolete autorun method. If so, consider [migrating to qclient](/docs/run-node/qclient/node/install) for better management and auto-updates.
-:::
-
-:::info User Context
-These instructions assume you are running as the **root** user or using `sudo`. For security best practices, consider creating a dedicated user as described in the [User Setup and Permissions](/docs/run-node/quick-start#user-setup-and-permissions) section.
-:::
-
-## Running the Legacy Node as systemd Service
+# Linux Configuration
+## Running the node as systemd service
 
 To run your node via `systemd`, create the service file:
 
