@@ -85,6 +85,7 @@ p2p:
   pingTimeout: 5s | <time.Duration> – Timeout for ping operations
   pingPeriod: 30s | <time.Duration> – Period between ping operations
   pingAttempts: 3 | <int> – Number of ping attempts before considering a peer unreachable
+  peerReconnectCheckInterval: 60s | <time.Duration> – Interval between peer checks after node start, retries peering if no peers are found
 ```
 :::warning
 
