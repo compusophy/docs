@@ -10,7 +10,12 @@ The following guide is divided into two sections: Default Configuration (where n
 
 ### Worker Configuration
 
-The default configuration utilizes a template string defined in the [engine section](/docs/run-node/advanced-configuration#engine-section), `dataWorkerBaseListenMultiaddr`. The default value for this is `/ip4/127.0.0.1/tcp/%d`. If this value is detected after the 2.1 cutoff frame, it will be replaced with `/ip4/0.0.0.0/tcp/%d`, as the updated workers must now have their ports opened. To safely allow the transition between 2.0 to 2.1 without needing to expose the 2.0 workers unnecessarily, the dual series of ports for libp2p and streaming for workers have two new base values: `dataWorkerBaseP2PPort` (default value of `50000`), and `dataWorkerBaseStreamPort` (default value of `60000`). For your workers, ensure those ports, for as many workers your node runs, are open, e.g. for four worker processes, the ports 50000, 50001, 50002, 50003, 60000, 60001, 60002, 60003 need to be open.
+The default configuration utilizes a template string defined in the [engine section](/docs/run-node/advanced-configuration#engine-section), `dataWorkerBaseListenMultiaddr`. The default value for this is `/ip4/127.0.0.1/tcp/%d`. If this value is detected after the 2.1 cutoff frame, it will be replaced with `/ip4/0.0.0.0/tcp/%d`, as the updated workers must now have their ports opened. To safely allow the transition between 2.0 to 2.1 without needing to expose the 2.0 workers unnecessarily, the dual series of ports for libp2p and streaming for workers have two new base values: `dataWorkerBaseP2PPort` (default value of `25000` as of 2.1.0.19), and `dataWorkerBaseStreamPort` (default value of `32500` as of 2.1.0.19). For your workers, ensure those ports, for as many workers your node runs, are open, e.g. for four worker processes, the ports 25000, 25001, 25002, 25003, 32500, 32501, 32502, 32503 need to be open.
+
+:::warning
+As of version 2.1.0.19, the default worker port range changed from `50000`/`60000` to `25000`/`32500`.
+If you were previously using the `50000`/`60000` range, see the [Worker Port Range Change](/docs/run-node/port-range-change) guide for details on who is affected and how to update your firewall, port forwarding, and configuration.
+:::
 
 ### Master Configuration
 

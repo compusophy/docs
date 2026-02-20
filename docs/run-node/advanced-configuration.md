@@ -106,8 +106,8 @@ engine:
   minimumPeersRequired: 3 – Minimum number of peers required for the node to function
   statsMultiaddr:  – The multiaddress for the stats server
   dataWorkerBaseListenMultiaddr: "/ip4/0.0.0.0/tcp/%d" – Format string for worker listen addresses, if the prior default using localhost addresses is present, it will switch to the new default automatically.
-  dataWorkerBaseP2PPort: 50000 – Starting port number for worker p2p communication
-  dataWorkerBaseStreamPort: 60000 – Starting port number for worker streaming
+  dataWorkerBaseP2PPort: 25000 – Starting port number for worker p2p communication (changed from 50000 in 2.1.0.19)
+  dataWorkerBaseStreamPort: 32500 – Starting port number for worker streaming (changed from 60000 in 2.1.0.19)
   dataWorkerMemoryLimit: 1880981504 – Memory limit for each worker process (1.75 GiB)
   dataWorkerP2PMultiaddrs: <string[]> – Manual specification of worker p2p multiaddresses
   dataWorkerStreamMultiaddrs: <string[]> – Manual specification of worker stream multiaddresses

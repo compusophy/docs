@@ -14,10 +14,15 @@ Please see the [system requirements](/docs/run-node/system-requirements) section
 |----------------------|--------------|--------------------------------------|---------------------------------------------------------------------------|
 | 8336           | QUIC/UDP or TCP   | Master process p2p communication |                                         |
 | 8340           | TCP   | Master process streaming communication  |                                        |
-| 50000-50003* | QUIC/UDP or TCP   | Worker processes p2p communication      | Port range must be opened based on the number of worker processes. |
-| 60000-60003* | TCP   | Worker processes streaming communication      | Port range must be opened based on the number of worker processes. |
+| 25000-25003* | QUIC/UDP or TCP   | Worker processes p2p communication      | Port range must be opened based on the number of worker processes. |
+| 32500-32503* | TCP   | Worker processes streaming communication      | Port range must be opened based on the number of worker processes. |
 
 *Using an example of 4 workers, 1 port for each, starting from the base port.
+
+:::warning
+As of version 2.1.0.19, the default worker port range changed from `50000`/`60000` to `25000`/`32500`.
+If you are upgrading, see the [Worker Port Range Change](/docs/run-node/port-range-change) guide to determine if you are affected and how to update your setup.
+:::
 
 :::info
 
