@@ -16,86 +16,157 @@ sidebar_position: 1
 
 ## Minimum Hardware Requirements
 
-The following requirements is for a single node.
+The following requirements are for a single node.
+These can be split across multiple servers if you are clustering, which is an advanced technique not suited for beginners.
 
-Note that this is may be split up across multiple servers with a minimum of one core for the node process, if you are clustering (which is an advanced technique not suited for beginners, read [Advanced Node Management](/docs/run-node/advanced-node-management) for more details).
-
-Signed pre-built binaries (the node software) for a Quilibrium node is designed to run on the above supported operating systems that meets the following requirements (assuming dedicated resources for the node):
-
+The node software is designed to run on the supported operating systems listed above, assuming dedicated resources for the node:
 
 | Component | Minimum Requirements |
 |-----------|----------------------|
-| CPU       | At least 4 logical cores |
-| RAM       | 2 GB/core                |
-| SSD       | 4 GB free space/core     |
+| CPU       | 4 threads            |
+| RAM       | 8 GB                 |
+| Storage   | 16 GB SSD            |
 
-A logical core is also known as a hyperthread (or individual core if not hyperthreaded) or vCPU on virtual machines.
+These minimums follow the [1:2:4 golden ratio](#workers-and-the-golden-ratio) — each thread the node uses requires 2 GB of RAM and 4 GB of storage.
 
-It should be noted that you will need sufficient RAM and storage to avoid running out of memory and disk space while running the node and should scale your hardware evenly when you upgrade components or cores used. For example:
- - if you have 4 cores, you should aim to have at least 8GB of RAM
- - if you have 8 cores, you should aim to have at least 16GB of RAM, etc.
+### CPU
 
-The general rule of thumb is: 1CPU to 2GB Ram to 4GB of storage.
+CPU specifications commonly list both cores and threads (e.g. "8C/16T" means 8 physical cores and 16 threads).
+The node allocates work per thread, also referred to as a logical core or vCPU on virtual machines.
 
-As network features evolve, support for ASICs, GPUs, FPGAs, or even quantum computing may emerge, requiring case-by-case testing to optimize performance.
+Hyperthreaded threads may not perform equally to physical cores.
+Node operators should benchmark and monitor node performance, comparing proof start-to-completion times with different thread counts to find the optimal configuration for their hardware.
+
+Higher clock speeds generally produce faster proof completions.
+Hardware that supports **AVX2** or **AVX512** instruction sets performs significantly better than hardware that does not.
+To take advantage of these instructions, you must use the AVX512 build of the node binary.
+
+Performance varies by architecture: AMD Ryzen and Apple Silicon tend to outperform older Intel Xeons at comparable core counts.
+Hardware with tightly integrated CPU, RAM, and caching — such as Apple Silicon or AMD Ryzen 9 series — tends to be more efficient due to vendor-specific optimizations.
+
+### Memory (RAM)
+
+Each thread the node uses requires a minimum of **2 GB of RAM**.
+Insufficient memory leads to worker process crashes, degraded proof performance, and potential node instability.
 
 ### Storage
-Storage may vary depend on if the node will be used to store data or if it will be a compute-only node. Many people currently opt for 1TB as a default, but this is not strictly required if on a budget.
 
-### Hyperthreading
-Performance may vary when using hyperthreading and may not be suitable for running the node, a node runner should evaluate on a case-by-case basis to determine this for their own setup by clocking proof start->completion times for each configuration.
+Each thread the node uses requires a minimum of **4 GB of SSD storage**.
+Storage needs vary depending on whether the node stores data or operates as a compute-only node.
+Many operators opt for 1 TB as a comfortable default, but this is not strictly required on a budget.
 
-### Graphics Cards (GPUs)
-GPUs are not well suited to run the base software of the node and not natively supported at this time. Running hardware that has an integrated or dedicated GPU will not impact performance positively or negatively as it is ignored completely.
+### Graphics Cards, ASICs, and FPGAs
 
-## Limiting Workers for Hardware Constraints
+GPUs are not used by the node software and are not natively supported.
+Running hardware with an integrated or dedicated GPU will not impact performance positively or negatively — it is ignored entirely.
 
-If your hardware is constrained by RAM, CPU cores, or storage, you may need to manually limit the number of worker processes your node runs. By default, the node will attempt to use all available cores, which can lead to memory exhaustion or disk space issues.
+As the network evolves, support for ASICs, FPGAs, or other specialized hardware may emerge, but none are currently utilized.
 
-### When to Limit Workers
+## Workers and the Golden Ratio
+
+### What Is a Worker?
+
+The node spawns **worker processes** to perform computations and generate proofs.
+By default, the node creates one worker per available thread.
+Each worker requires its own dedicated allocation of CPU, RAM, and storage.
+
+### The 1:2:4 Golden Ratio
+
+The recommended resource allocation per worker is:
+
+| Resource | Per Worker |
+|----------|------------|
+| CPU      | 1 thread   |
+| RAM      | 2 GB       |
+| Storage  | 4 GB SSD   |
+
+This **1 thread : 2 GB RAM : 4 GB storage** ratio is the balanced allocation recommended for Quilibrium v2.1 and beyond.
+Your most constrained resource determines how many workers your node can run.
+
+### Calculating Your Worker Count
+
+To find your maximum worker count, divide each resource by its per-worker requirement and take the **lowest** result.
+
+**Example 1 — RAM is the bottleneck:**
+
+| | Available | Per Worker | Max Workers |
+|-|-----------|------------|-------------|
+| CPU | 16 threads (8C/16T) | 1 thread | 16 |
+| RAM | 24 GB | 2 GB | 12 |
+| Storage | 100 GB SSD | 4 GB | 25 |
+
+RAM is the most constrained resource, so this node should run **12 workers**.
+
+**Example 2 — CPU is the bottleneck:**
+
+| | Available | Per Worker | Max Workers |
+|-|-----------|------------|-------------|
+| CPU | 4 threads (4C/4T, no hyperthreading) | 1 thread | 4 |
+| RAM | 32 GB | 2 GB | 16 |
+| Storage | 200 GB SSD | 4 GB | 50 |
+
+CPU is the most constrained resource, so this node should run **4 workers**.
+
+### Setting Worker Count
+
+If the default (one worker per thread) exceeds what your hardware can support, you should manually limit the worker count.
 
 You should consider limiting workers if:
 - You see memory warnings in your node logs
 - Your system is running out of RAM or disk space
 - You want to reserve resources for other applications
-- You're testing with minimal hardware
+- You are testing with minimal hardware
 
-### How to Calculate Worker Limits
-
-Using the **1 CPU core : 2 GB RAM : 4 GB storage** ratio, calculate your maximum workers based on your most constrained resource:
-
-**Examples:**
-- **8 GB RAM available** → 8 GB ÷ 2 GB per worker = **4 workers maximum**
-- **4 CPU cores available** → 4 cores ÷ 1 core per worker = **4 workers maximum**
-- **20 GB storage available** → 20 GB ÷ 4 GB per worker = **5 workers maximum**
-
-Choose the **lowest** number from your calculations.
-
-### Setting Worker Count
-
-To manually set the number of workers, edit your `config.yml` file (located in `.config/config.yml` or `~/.quilibrium/configs/[config-name]/config.yml` if using qclient):
+To set the number of workers, edit your `config.yml` file (located in `.config/config.yml` or `~/.quilibrium/configs/[config-name]/config.yml` if using qclient):
 
 ```yaml
 engine:
-  dataWorkerCount: 4  # Set to your calculated worker limit
+  dataWorkerCount: 12
 ```
 
 After editing, restart your node for the changes to take effect.
 
 :::tip
-If you're unsure about your current worker count, check your node logs during startup - it will show how many workers are being spawned.
+If you are unsure about your current worker count, check your node logs during startup — it will show how many workers are being spawned.
+
+You can also check the number of running worker processes directly.
+
+Worker processes are launched with a `--core` flag, so you can count them on any system:
+
+```bash
+ps aux | grep "\-\-core" | grep -v grep | wc -l
+```
+
+If you are running the node as a **systemd** service on Linux:
+
+```bash
+systemctl status <your-service-name>
+```
 :::
 
 For more details on the `engine` section configuration, see [Advanced Configuration](/docs/run-node/advanced-configuration#engine-section).
 
 ## Hardware Selection
 
-The minimum hardware requirements above are just a bare-minimum.
+The minimum hardware requirements above are a bare minimum.
+Any node that uses just the minimum will find that rewards are minimal.
+Minimums may be useful for setting up a local testnet for development, testing, experimentation, or just for fun.
 
-Any node that uses just the minimum will find that rewards are minimal. Using minimums may be useful for setting up a local testnet for application and/or protocol development, testing, for experimentation purposes, or just for fun.
+You can increase your rewards by using hardware with more threads (and the corresponding RAM and storage), as well as finding hardware combinations that perform better at high-performance CPU workloads.
 
-You can increase your rewards by using larger CPUs or VDS plans with more cores (and the sufficient amount of RAM for each core), as well as finding hardware combinations that perform better at high-performance CPU workloads.
+### Clock Speeds
 
+Higher clock-speed CPUs are generally faster for the node software, and more modern CPUs may have additional features that improve performance.
+
+More cores may not always produce better results, especially with older hardware, but generally when comparing two servers with similar architecture and clock speed, more cores yield better overall performance.
+
+More cores also generate more heat, which may lead to thermal throttling and lower performance.
+
+When a node must provide a computation, it needs to submit its proofs in a relatively short period of time.
+When using many cores on the same unit, the node will by default use as many as possible, which can cause throttling and slow down overall performance.
+This may require manually [setting the worker count](#setting-worker-count) below the total available threads.
+
+Some hardware may not be able to meet the computation speed requirement even at minimum specs if it is too slow or old.
 
 ### Renting vs Owning
 
@@ -114,25 +185,6 @@ Owning also requires more hands-on work to maintain, run, and configure/set up.
 There are trade-offs to both approaches and many may find themselves starting with renting for ease of starting and eventually migrating to owning as they are more comfortable.
 
 It would be a viable strategy to test node performance on rented servers before committing to purchasing.
-
-### Clock Speeds
-Higher clock-speed CPUs are generally faster for the node software, and more modern CPUs may have additional features that can improve performance.
-
-More cores may not always produce better results, especially when considering older hardware, but generally when comparing two servers with similar architecture and clock-speed, you will get better overall performance with more cores.
-
-More cores also means that there is more heat, which may lead to throttling of hardware, lowering performance.
-
-For example, when looking at comparable price point and ages of CPUs between Intel and AMD, it has been found that AMD CPUs have historically provided better performance for Quilibrium nodes and ARM CPUs, albeit rarer for high-core count servers and more expensive for those that do exist, have been found to perform more efficiently than AMD or Intel with similar specs.
-
-Another example would be using older Xeons with high core counts that cannot leverage all the cores due to the slow speeds of the processor.
-
-When a node must provide a computation, it needs to submit it's proofs in a relatively short period of time and when using more cores on the same unit, by default it will use as many cores as possible and throttle, slowing down the overall performance.  This results in needing to manually set the node to use less than all the provided cores to reduce this impact.
-
-With the above in mind, some hardware may not even be able to fulfill this computation speed requirement even using the minimum specs if too slow/old.
-
-Hardware that supports AVX2 or AVX512 intrinsics perform significanly better than hardware that does not.
-
-Hardware that has more tightly integrated CPU/RAM and caching, such as Apple Silicon or AMD Ryzen 9 series also tend to be more efficient due to vendor-specific hardware optimizations and improvements.
 
 ## Network Requirements
 Network requirements are made up of network speed (how fast your data can be transmitted), network hardware (routers, switches, network cards), which impacts your overall bandwidth (amount of data being ingressed/egressed).  Network latency will also impact how your node is seen by others.
@@ -166,7 +218,7 @@ Quilibrium v2.1 changes how hardware impacts rewards compared to v2.0.
 
 In v2.0, faster CPUs increased rewards by supporting more worker processes, but v2.1 introduces higher memory and storage demands per worker, reducing the CPU's primary role.
 
-A balanced setup — following the **1 CPU core to 2 GB RAM to 4 GB storage** ratio — is now recommended for v2.1's long-term design, making earlier over-allocation less effective.
+A balanced setup following the [1:2:4 golden ratio](#workers-and-the-golden-ratio) is now recommended for v2.1's long-term design, making earlier CPU-heavy over-allocation less effective.
 
 Low-end options like Raspberry Pis function (with modest rewards and clustering potential), while modern hardware like AMD Ryzen, Apple Silicon (e.g., Mac Minis), and high-core servers excel; older Xeons typically underperform.
 
@@ -179,4 +231,4 @@ Low-end options like Raspberry Pis function (with modest rewards and clustering 
 | Older Xeon (2000s)             | Very Low to Unusable       | Struggles with slow memory/disks; needs optimization |
 | AMD Ryzen/7702 Series          | Moderate to High           | Strong in v2.0; still good but less dominant |
 | Apple Silicon (e.g., M1/M2, Mac Mini) | High                | Efficient, integrated; excels standalone or clustered |
-| High-Core Server               | High                       | Best with modern CPUs, ample RAM/storage   |
+| Modern High-Core Server (e.g., AMD EPYC) | High              | Best with modern CPUs, ample RAM/storage   |
