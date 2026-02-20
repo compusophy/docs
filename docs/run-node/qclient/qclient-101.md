@@ -7,12 +7,12 @@ sidebar_position: 1
 The qclient is an CLI application that eases a user's connection to the Quilibrium network. 
 
 ## QClient Features
-The qclient provides a variety of features to interact with the Quilibrium network, including token operations, node management, and bridging tokens. Below is a detailed table summarizing the key functionalities:
+The qclient provides a variety of features to interact with the Quilibrium network, including token operations, node operations, and bridging tokens. Below is a detailed table summarizing the key functionalities:
 
 | **Category**            | **Description**                                      | **Documentation**                              |
 |-------------------------|------------------------------------------------------|---------------------------------------|
 | **Token Operations**    | Manage and perform token operations with tokens (send/receive, accept/reject, get balances, split, etc.).     | [Token Commands](/docs/run-node/qclient/commands/token)    |
-| **Node Management**     | Install, configure, run, and update a Quilibrium node. | [Node Management](/docs/run-node/qclient/commands/node)            |
+| **Node Operations**     | Manage prover status, configuration, and node information. | [Node Commands](/docs/run-node/qclient/commands/node)            |
 | **Bridging Tokens**     | Facilitate the bridging of Q native token transfers to different networks. | [Bridging Token Commands](/docs/run-node/qclient/commands/bridging) |
 | **General Commands**    | Perform general qclient operations like updating the qclient, getting the version, etc.. | [General QClient Commands](/docs/run-node/qclient/commands/qclient) |
 | **QClient Configuration** | Configure QClient settings such as RPC endpoints and signature checks. | [QClient Config Commands](/docs/run-node/qclient/commands/qclient-config) |

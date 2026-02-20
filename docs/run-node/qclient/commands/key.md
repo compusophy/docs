@@ -206,4 +206,3 @@ Keys created or imported here can be used with:
 
 - [Messaging Commands](/docs/run-node/qclient/commands/messaging) - Use keys for encrypted messaging
 - [Hypergraph Commands](/docs/run-node/qclient/commands/hypergraph) - Use keys for data encryption
-- [Node Key Management](/docs/run-node/qclient/node/key-management/keys) - Node-specific key operations

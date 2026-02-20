@@ -117,7 +117,7 @@ You should consider limiting workers if:
 - You want to reserve resources for other applications
 - You are testing with minimal hardware
 
-To set the number of workers, edit your `config.yml` file (located in `.config/config.yml` or `~/.quilibrium/configs/[config-name]/config.yml` if using qclient):
+To set the number of workers, edit your `config.yml` file (located in `.config/config.yml` relative to your node's working directory):
 
 ```yaml
 engine:

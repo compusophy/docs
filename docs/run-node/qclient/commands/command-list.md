@@ -95,27 +95,7 @@ These flags can be used with any qclient command:
 
 | **Command**                        | **Syntax**                                              | **Description**                                                                                   |
 |------------------------------------|--------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| **Install**                        | `qclient node install [<Version>]`                     | Installs the node binary and service with optional version specification.                         |
-| **Update**                         | `qclient node update [<Version>] [--restart\|-r]`      | Updates node with optional version and restart.                                                   |
-| **Auto-Update**                    | `qclient node auto-update <enable\|disable\|status>`    | Manages automatic updates with status checking.                                                   |
-| **Clean**                          | `qclient node clean [--all\|--logs\|--node]`           | Cleans old files with specific options for logs or node binaries.                                |
-| **Link**                           | `qclient node link [--version\|-v <Version>]`          | Creates version-specific symlink for node binary.                                                |
 | **Info**                           | `qclient node info [<ConfigName>] [--latest-version\|-l]` | Gets node information with optional config and latest version check.                           |
-| **Uninstall**                      | `qclient node uninstall [--force]`                     | Completely removes node from system with optional force flag.                                     |
-
-### Node Service Commands
-| **Command**                        | **Syntax**                                              | **Description**                                                                                   |
-|------------------------------------|--------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| **Start**                          | `qclient node service start`                           | Starts the node service if it is installed.                                                      |
-| **Stop**                           | `qclient node service stop`                            | Stops the node service if it is running.                                                         |
-| **Restart**                        | `qclient node service restart`                         | Restarts the node service.                                                                       |
-| **Status**                         | `qclient node service status`                          | Checks the current status of the node service.                                                   |
-| **Enable**                         | `qclient node service enable`                          | Enables the node service to start automatically on boot.                                         |
-| **Disable**                        | `qclient node service disable`                         | Disables the node service from starting automatically on boot.                                   |
-| **Reload**                         | `qclient node service reload`                          | Reloads the node service configuration.                                                          |
-| **Install**                        | `qclient node service install`                         | Installs the node service on the system.                                                         |
-| **Update**                         | `qclient node service update`                          | Updates the node service configuration file.                                                     |
-| **Uninstall**                      | `qclient node service uninstall`                       | Removes the node service from the system.                                                        |
 
 ### Node Prover Commands
 | **Command**                        | **Syntax**                                              | **Description**                                                                                   |
