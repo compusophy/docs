@@ -48,7 +48,7 @@ If your `config.yml` was generated at 2.1.0, the values `dataWorkerBaseP2PPort: 
 The node will continue using those explicit values and the new defaults will **not** apply.
 
 **Impact:** You may still experience intermittent connectivity failures because the `50000-60000` range overlaps with the OS ephemeral port range.
-To resolve this, either [set your local ephemeral port range](#4-set-the-local-ephemeral-port-range-recommended) to exclude the `50000-60000` range, or migrate to the new lower port range by following [Option A](#option-a-adopt-the-new-port-range-recommended) below.
+To resolve this, either [set your local ephemeral port range](#option-b-keep-the-old-port-range) to exclude the `50000-60000` range, or migrate to the new lower port range by following [Option A](#option-a-adopt-the-new-port-range-recommended) below.
 
 ## How to Fix
 

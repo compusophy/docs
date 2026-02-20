@@ -1,0 +1,8 @@
+{
+  "label": "Node Provisioning",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "run-node/node-provisioning/index"
+  }
+}

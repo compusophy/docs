@@ -1,8 +1,0 @@
-{
-    "label": "Node System Service",
-    "position": 2,
-    "link": {
-        "type": "generated-index",
-        "description": "The Node Service uses system services to run the node. This section describes the services and how to use them."
-    }
-}

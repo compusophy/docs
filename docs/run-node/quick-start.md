@@ -4,9 +4,25 @@ sidebar_position: 1
 
 # Quick Start
 
+:::tip Looking to interact with the network without running a node?
+You don't need to run a node to check balances, transfer tokens, or perform other network operations.
+See the [QClient](/docs/run-node/qclient/qclient-101) section to get started with the command-line client.
+:::
+
 ## System Requirements
 
-Please see the [system requirements](/docs/run-node/system-requirements) section for details.
+Your hardware directly determines how many workers your node can run, how quickly it completes proofs, and how much you earn in rewards.
+Under-provisioned nodes will struggle to keep up with the network and may incur penalties.
+
+Review the [system requirements](/docs/run-node/system-requirements) carefully before purchasing or renting a server.
+
+## Node Install
+
+See the [Node Provisioning](/docs/run-node/node-provisioning) page for a breakdown of all available install methods, including:
+
+- [**QTools**](/docs/run-node/node-provisioning/qtools) (Recommended) — Automated provisioning and management
+- [**Manual Install**](/docs/run-node/node-provisioning/manual-install) — Download the binary and set up a service yourself ([Linux](/docs/run-node/node-provisioning/manual-install/linux), [macOS](/docs/run-node/node-provisioning/manual-install/macos))
+- [**Legacy Methods**](/docs/run-node/node-provisioning/legacy) — Release autorun script and QOne
 
 ## Default Ports to Open on Firewall
 
@@ -52,56 +68,6 @@ ufw deny out to 224.0.0.0/4
 ufw deny out to 255.255.255.255
 ```
 
-## Node Install
-
-### Recommended Install Method
-To install and manage a node, the long-term supported method is to [download and install via qclient](/docs/run-node/qclient/setup#scripted-installation).
-
-Then run:
-```bash
-sudo qclient node install
-```
-
-#### Enabling Node Auto-Updates via QClient
-You can enable/disable qclient auto-updates with:
-```bash
-qclient node auto-update enable
-```
-
-:::note
-There may be some early-bugs that may cause this method to not work for you, as this method is recently released.
-
-If you have issues, the autorun solution below can be used in the meantime.
-:::
-
-### Legacy Release Autorun Script
-This is a legacy solution and not actively maintained anymore, but may be used.
-
-The release autorun script automatically downloads the latest `node` binary, runs it, checks for new version in the background and, if found, triggers the update including `node` restart.
-
-Create the node directory:
-
-```bash
-mkdir -p ceremonyclient/node && cd ceremonyclient/node
-```
-
-Download the release autorun script and validate that its content is in line with your expectations:
-```bash
-wget https://github.com/QuilibriumNetwork/monorepo/blob/release/node/release_autorun.sh
-```
-
-Make the script executable:
-```bash
-chmod +x release_autorun.sh
-```
-
-Run the script:
-```bash
-./release_autorun.sh
-```
-
-This script is intended to help get started quickly, but for robust deployments it is recommended to use some service orchestration solution (e.g. `systemd` on Linux).
-
 ## Key and Store Backups
 
 In order to run a node, access rewards or make token operations for your account, you need the node's **keyset** consisting of the `config.yml` and `keys.yml` files. You are strongly advised to maintain copies of these files in an encrypted backup.
@@ -118,7 +84,5 @@ Keyset and worker data are stored in your node's `.config` directory:
 .config/worker-store/[worker-id]/
 ```
 :::info
-If you installed via `qclient`, your config directory should be in `~/.quilibrium/configs/[config-name]`.
-
-If you used `release_autorun.sh` script, your config directory should be `ceremonyclient/node/.config`.
+If you used the `release_autorun.sh` script, your config directory should be `ceremonyclient/node/.config`.
 :::

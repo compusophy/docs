@@ -1,0 +1,8 @@
+{
+  "label": "Manual Install",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "run-node/node-provisioning/manual-install/index"
+  }
+}

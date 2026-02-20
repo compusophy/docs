@@ -1,9 +1,0 @@
-{
-    "label": "Node Management via QClient",
-    "position": 3,
-    "link": {
-      "type": "generated-index",
-      "description": "Learn how to use the qclient CLI tool to install and manage nodes on the Quilibrium network"
-    }
-  }
-  
