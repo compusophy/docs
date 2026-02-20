@@ -1,8 +1,9 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
+sidebar_label: Advanced QClient
 ---
 
-# RPC
+# Advanced QClient: Node RPC
 
 Remote Procedure Call support on Quilibrium allows hybridized offline-online mode, making management of common network assets (Accounts, Coins, Transactions) for more complex key management scenarios possible.
 This document serves to capture both the raw RPC documentation following the protobufs, and then specific management scenarios for cold custody, warm/hot custody, and MPC custody.
