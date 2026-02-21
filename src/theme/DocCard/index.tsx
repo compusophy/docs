@@ -14,6 +14,7 @@ import type {
   PropSidebarItemCategory,
   PropSidebarItemLink,
 } from '@docusaurus/plugin-content-docs';
+import Icon from '@site/src/components/Icons';
 
 import styles from './styles.module.css';
 
@@ -55,11 +56,15 @@ function CardContainer({
 function CardLayout({
   className,
   href,
+  icon,
+  iconClassName,
   title,
   description,
 }: {
   className?: string;
   href: string;
+  icon?: ReactNode;
+  iconClassName?: string;
   title: string;
   description?: string;
 }): ReactNode {
@@ -69,6 +74,7 @@ function CardLayout({
         as="h2"
         className={clsx('text--truncate', styles.cardTitle)}
         title={title}>
+        {icon && <span className={clsx(styles.cardIcon, iconClassName)}>{icon}</span>}
         {title}
       </Heading>
       {description && (
@@ -94,6 +100,8 @@ function CardCategory({item}: {item: PropSidebarItemCategory}): ReactNode {
     <CardLayout
       className={item.className}
       href={href}
+      icon={<Icon name="newfolder" />}
+      iconClassName={styles.categoryIcon}
       title={item.label}
       description={item.description ?? categoryItemsPlural(item.items.length)}
     />
@@ -106,6 +114,7 @@ function CardLink({item}: {item: PropSidebarItemLink}): ReactNode {
     <CardLayout
       className={item.className}
       href={item.href}
+      icon={<Icon name="newfile" />}
       title={item.label}
       description={item.description ?? doc?.description}
     />
