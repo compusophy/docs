@@ -951,15 +951,25 @@ details.alert {
 }
 
 /* ---- 2.2 Modern Tables ---- */
+
+/* display:block + overflow-x:auto turns the <table> into a scrollable
+   block container while child elements (thead, tbody, tr, th, td) keep
+   their intrinsic table display values — columns stay aligned.
+   max-width:100% prevents the block box from exceeding the parent. */
 .theme-doc-markdown table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: separate;
   border-spacing: 0;
   border-radius: 8px;
-  overflow: hidden;
   border: 1px solid var(--border-subtle);
-  width: auto !important;
   max-width: 100%;
-  display: table;
+}
+
+.theme-doc-markdown table th,
+.theme-doc-markdown table td {
+  min-width: 120px;
 }
 
 .theme-doc-markdown table th {

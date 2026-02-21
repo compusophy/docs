@@ -28,12 +28,38 @@
 }
 
 .cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.9375rem;
   font-weight: 500;
   color: inherit;
 }
 
+.cardIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  color: rgba(140, 135, 130, 0.85);
+}
+
+[data-theme='dark'] .cardIcon {
+  color: rgba(180, 175, 170, 0.8);
+}
+
+.cardIcon.categoryIcon {
+  color: rgba(255, 5, 109, 0.65);
+}
+
+[data-theme='dark'] .cardIcon.categoryIcon {
+  color: rgba(255, 5, 109, 0.7);
+}
+
 .cardDescription {
   font-size: 0.8125rem;
   color: var(--text-secondary);
+  /* Align with title text (icon width + gap) */
+  padding-left: calc(1.125rem + 0.5rem);
 }
