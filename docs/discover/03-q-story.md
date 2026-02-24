@@ -44,20 +44,25 @@ Rolling out the Ethereum bridge first version, to allow early node runners to cl
 
 ### 🌃 Midnight (v2.1 - Mainnet)
 
-📅 Q4 2024\
+📅 Q4 2025\
 First stage of Mainnet is deployed on a single shard, where node runner's rewards are automatically minted to their keyed accounts.
 
 Network users can permissionlessly split, consolidate, query, and transfer tokens.
 
-Launch of [Quorum Messenger](https://www.quorummessenger.com/), the first app to go live on Quilibrium.
+Launch of [Quorum Messenger](https://www.quorummessenger.com/) desktop app, the first app to go live on Quilibrium.
 
-📅 Q1 2025\
+📅 Q1 2026\
 Final phase of "Dusk": entering full stealth mode. Transactions are fully encrypted between users.  The network transitions to be multi-sharded and developers can permissionlessly deploy applications, transmit and stream data.
 
-The first Q APIs are deployed [QStorage](/docs/api/q-storage/overview) and [QKMS](/docs/api/q-kms/overview) along with QConsole, a dashboard for these functions.
-
+Launch of [Quilibrium Names Service](https://names.quilibrium.com/).\
 Quorum Messenger mobile apps are deployed in testing phase.
 
+The first Q APIs are deployed and these services launched via [QConsole](https://qconsole.quilibrium.com/): 
+
+- [QStorage](/docs/api/q-storage/overview) : Decentralized S3-compatible storage built to compete directly with AWS S3 without the egress fees that usually come with it
+- [QKMS](/docs/api/q-kms/overview): Quilibrium’s Key Management System is a drop in solution for applications and infrastructure providers to manage multi party keys in a safe and secure way without introducing single points of failure
+- QQ: Decentralized SQS-compatible queues, both standard and FIFO
+- QPing: Decentralized SNS-compatible notifications API, supports webhook invocation and QQ integration
 
 ### ☯️ Equinox
 
